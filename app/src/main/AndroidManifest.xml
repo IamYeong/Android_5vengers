@@ -19,6 +19,18 @@
             android:value="@string/kakao_native_app_key"
             />
 
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+            <data android:host="oauth"
+                android:scheme="kakao{166f21846686fa4df0ab109301328b70}" />
+        </intent-filter>
+    </activity>
+
         <activity android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
 
