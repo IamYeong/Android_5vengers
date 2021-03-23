@@ -2,8 +2,15 @@ package com.iamyeong.myfriendsplace;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
+import com.kakao.sdk.user.UserApiClient;
 
 
 import androidx.navigation.NavController;
@@ -17,10 +24,16 @@ import androidx.appcompat.widget.Toolbar;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private String knickName, imageURL, thumbnailURL;
+    private ImageView img_profile;
+    private TextView name, email;
 
 
     @Override
@@ -28,12 +41,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toast.makeText(MainActivity.this, R.string.login_success_5, Toast.LENGTH_SHORT).show();
+
+        img_profile = findViewById(R.id.imageView);
+        name = findViewById(R.id.tv_name_header);
+        email = findViewById(R.id.tv_address_header);
+
+
         Intent intent = getIntent();
-        String knickName = intent.getStringExtra("NAME");
-        String imageURL = intent.getStringExtra("IMAGE");
-        String thumbnailURL = intent.getStringExtra("THUMBNAIL");
+        knickName = intent.getStringExtra("NAME");
+        imageURL = intent.getStringExtra("IMAGE");
+        thumbnailURL = intent.getStringExtra("THUMBNAIL");
 
         System.out.println(knickName + imageURL + thumbnailURL);
+
+        /*
+        Glide.with(this).load(imageURL).into(img_profile);
+        name.setText(knickName);
+        email.setText("email");
+
+         */
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,6 +92,19 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+        UserApiClient.getInstance().logout(new Function1<Throwable, Unit>() {
+            @Override
+            public Unit invoke(Throwable throwable) {
+                System.out.println(throwable);
+                return null;
+            }
+        });
 
+        Log.d("MainActivity", " : onDestroy");
+
+    }
 }

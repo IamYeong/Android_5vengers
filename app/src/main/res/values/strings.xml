@@ -23,4 +23,8 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <string name="login_fail_5">ㄹ5그인 해라</string>
+    <string name="login_success_5">555 ㄹ5그인 성ㄱ5ㅇ</string>
+
 </resources>
