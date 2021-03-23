@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private String knickName, imageURL, thumbnailURL;
-    private ImageView img_profile;
-    private TextView name, email;
 
 
     @Override
@@ -43,11 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(MainActivity.this, R.string.login_success_5, Toast.LENGTH_SHORT).show();
 
-        img_profile = findViewById(R.id.imageView);
-        name = findViewById(R.id.tv_name_header);
-        email = findViewById(R.id.tv_address_header);
-
-
         Intent intent = getIntent();
         knickName = intent.getStringExtra("NAME");
         imageURL = intent.getStringExtra("IMAGE");
@@ -55,18 +49,22 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println(knickName + imageURL + thumbnailURL);
 
-        /*
-        Glide.with(this).load(imageURL).into(img_profile);
-        name.setText(knickName);
-        email.setText("email");
-
-         */
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView name = headerView.findViewById(R.id.tv_name_header);
+        TextView email = headerView.findViewById(R.id.tv_address_header);
+        ImageView img_profile = headerView.findViewById(R.id.imageView);
+
+        Glide.with(this).load(thumbnailURL).into(img_profile);
+        name.setText(knickName);
+        email.setText("email");
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -76,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     @Override
