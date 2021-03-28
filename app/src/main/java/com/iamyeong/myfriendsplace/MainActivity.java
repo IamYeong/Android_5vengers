@@ -1,6 +1,8 @@
 package com.iamyeong.myfriendsplace;
 
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,10 +12,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.kakao.sdk.user.UserApiClient;
 
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,8 +36,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -32,7 +49,8 @@ import kotlin.jvm.functions.Function1;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private String knickName, imageURL, thumbnailURL;
+    private String knickName, imageURL, thumbnailURL, email;
+
 
 
     @Override
@@ -43,11 +61,12 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, R.string.login_success_5, Toast.LENGTH_SHORT).show();
 
         Intent intent = getIntent();
-        knickName = intent.getStringExtra("NAME");
-        imageURL = intent.getStringExtra("IMAGE");
-        thumbnailURL = intent.getStringExtra("THUMBNAIL");
+        knickName = intent.getStringExtra(KeyManager.KAKAO_NAME);
+        imageURL = intent.getStringExtra(KeyManager.KAKAO_IMAGE_URL);
+        thumbnailURL = intent.getStringExtra(KeyManager.KAKAO_THUMBNAIL_URL);
+        //email = intent.getStringExtra(KeyManager.KAKAO_EMAIL);
 
-        System.out.println(knickName + imageURL + thumbnailURL);
+        System.out.println(knickName + imageURL + thumbnailURL + email);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -58,12 +77,16 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
 
         TextView name = headerView.findViewById(R.id.tv_name_header);
-        TextView email = headerView.findViewById(R.id.tv_address_header);
+        //TextView tv_email = headerView.findViewById(R.id.tv_address_header);
         ImageView img_profile = headerView.findViewById(R.id.imageView);
 
-        Glide.with(this).load(thumbnailURL).into(img_profile);
+
+        Glide.with(this)
+                .load(thumbnailURL)
+                .circleCrop()
+                .into(img_profile);
         name.setText(knickName);
-        email.setText("email");
+        //tv_email.setText(email);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

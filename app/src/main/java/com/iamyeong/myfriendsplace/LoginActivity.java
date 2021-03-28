@@ -23,7 +23,7 @@ import kotlin.jvm.functions.Function2;
 public class LoginActivity extends AppCompatActivity {
 
 
-    private String knickName, imageURL, thumbnailURL;
+    private String knickName, imageURL, thumbnailURL, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +77,13 @@ public class LoginActivity extends AppCompatActivity {
                     knickName = user.getKakaoAccount().getProfile().getNickname();
                     imageURL = user.getKakaoAccount().getProfile().getProfileImageUrl();
                     thumbnailURL = user.getKakaoAccount().getProfile().getThumbnailImageUrl();
+                    email = user.getKakaoAccount().getEmail();
 
-                    intent.putExtra("NAME", knickName);
-                    intent.putExtra("IMAGE", imageURL);
-                    intent.putExtra("THUMBNAIL", thumbnailURL);
+
+                    intent.putExtra(KeyManager.KAKAO_NAME, knickName);
+                    intent.putExtra(KeyManager.KAKAO_IMAGE_URL, imageURL);
+                    intent.putExtra(KeyManager.KAKAO_THUMBNAIL_URL, thumbnailURL);
+                    intent.putExtra(KeyManager.KAKAO_EMAIL, email);
 
                     startActivity(intent);
                     finish();

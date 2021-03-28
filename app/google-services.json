@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "101599582065",
+    "project_id": "myfriendplace-aba15",
+    "storage_bucket": "myfriendplace-aba15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101599582065:android:6a16d18ff3abe3645408d0",
+        "android_client_info": {
+          "package_name": "com.iamyeong.myfriendsplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "101599582065-hop3fc61e5b1lod9ikejov44peasnk22.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC65Dv8iO0IKOR_qN7Cg3hTFWnTL4rODwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "101599582065-hop3fc61e5b1lod9ikejov44peasnk22.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
