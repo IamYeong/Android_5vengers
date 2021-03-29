@@ -26,5 +26,69 @@
 
     <string name="login_fail_5">ㄹ5그인 해라</string>
     <string name="login_success_5">555 ㄹ5그인 성ㄱ5ㅇ</string>
+    <string name="comment">댓글보기</string>
+
+    <string name="post_example">"\n" +
+                "03/29 20:37:35: Launching 'app' on No Devices.\n" +
+                "Install successfully finished in 24 s 619 ms.\n" +
+                "$ adb shell am start -n \"com.iamyeong.myfriendsplace/com.iamyeong.myfriendsplace.SplashActivity\" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER\n" +
+                "Connected to process 3128 on device 'emulator-5554'.\n" +
+                "Capturing and displaying logcat messages from application. This behavior can be disabled in the \"Logcat output\" section of the \"Debugger\" settings page.\n" +
+                "D/NetworkSecurityConfig: No Network Security Config specified, using platform default\n" +
+                "    No Network Security Config specified, using platform default\n" +
+                "W/ComponentDiscovery: Class com.google.firebase.dynamicloading.DynamicLoadingRegistrar is not an found.\n" +
+                "I/FirebaseApp: Device unlocked: initializing all Firebase APIs for app [DEFAULT]\n" +
+                "I/FirebaseInitProvider: FirebaseApp initialization successful\n" +
+                "D/libEGL: loaded /vendor/lib/egl/libEGL_emulation.so\n" +
+                "D/libEGL: loaded /vendor/lib/egl/libGLESv1_CM_emulation.so\n" +
+                "D/libEGL: loaded /vendor/lib/egl/libGLESv2_emulation.so\n" +
+                "W/.myfriendsplac: Accessing hidden method Landroid/view/View;->computeFitSystemWindows(Landroid/graphics/Rect;Landroid/graphics/Rect;)Z (greylist, reflection, allowed)\n" +
+                "W/.myfriendsplac: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (greylist, reflection, allowed)\n" +
+                "I/.myfriendsplac: Background young concurrent copying GC freed 12989(1258KB) AllocSpace objects, 3(60KB) LOS objects, 91% free, 2312KB/26MB, paused 888us total 126.288ms\n" +
+                "D/HostConnection: HostConnection::get() New Host Connection established 0xef0a0760, tid 3213\n" +
+                "D/HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_async_unmap_buffer ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_async_frame_commands ANDROID_EMU_gles_max_version_2 \n" +
+                "W/OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...\n" +
+                "D/EGL_emulation: eglCreateContext: 0xef0a0300: maj 2 min 0 rcv 2\n" +
+                "D/EGL_emulation: eglMakeCurrent: 0xef0a0300: ver 2 0 (tinfo 0xef3e0b90) (first time)\n" +
+                "I/Gralloc4: mapper 4.x is not supported\n" +
+                "D/HostConnection: createUnique: call\n" +
+                "D/HostConnection: HostConnection::get() New Host Connection established 0xef0a0920, tid 3213\n" +
+                "D/goldfish-address-space: allocate: Ask for block of size 0x100\n" +
+                "    allocate: ioctl allocate returned offset 0x3ff389000 size 0x2000\n" +
+                "D/HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_async_unmap_buffer ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_async_frame_commands ANDROID_EMU_gles_max_version_2 \n" +
+                "W/.myfriendsplac: Accessing hidden method Ldalvik/system/CloseGuard;->get()Ldalvik/system/CloseGuard; (greylist,core-platform-api, reflection, allowed)\n" +
+                "    Accessing hidden method Ldalvik/system/CloseGuard;->open(Ljava/lang/String;)V (greylist,core-platform-api, reflection, allowed)\n" +
+                "    Accessing hidden method Ldalvik/system/CloseGuard;->warnIfOpen()V (greylist,core-platform-api, reflection, allowed)\n" +
+                "I/Choreographer: Skipped 30 frames!  The application may be doing too much work on its main thread.\n" +
+                "W/.myfriendsplac: Verification of okhttp3.internal.connection.RealConnection okhttp3.internal.connection.StreamAllocation.findConnection(int, int, int, int, boolean) took 109.254ms (2993.03 bytecodes/s) (7064B approximate peak alloc)\n" +
+                "W/.myfriendsplac: Accessing hidden method Lcom/android/org/conscrypt/ConscryptEngineSocket;->setUseSessionTickets(Z)V (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->setUseSessionTickets(Z)V (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->setUseSessionTickets(Z)V (greylist-max-q, reflection, denied)\n" +
+                "W/.myfriendsplac: Accessing hidden method Lcom/android/org/conscrypt/ConscryptEngineSocket;->setHostname(Ljava/lang/String;)V (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->setHostname(Ljava/lang/String;)V (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->setHostname(Ljava/lang/String;)V (greylist-max-q, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->setAlpnProtocols([B)V (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->setAlpnProtocols([B)V (greylist-max-q, reflection, denied)\n" +
+                "W/.myfriendsplac: Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->getAlpnSelectedProtocol()[B (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "W/.myfriendsplac: Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->getAlpnSelectedProtocol()[B (greylist-max-q, reflection, denied)\n" +
+                "W/.myfriendsplac: Accessing hidden method Lcom/android/org/conscrypt/ConscryptEngineSocket;->setUseSessionTickets(Z)V (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->setUseSessionTickets(Z)V (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->setUseSessionTickets(Z)V (greylist-max-q, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/ConscryptEngineSocket;->setHostname(Ljava/lang/String;)V (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->setHostname(Ljava/lang/String;)V (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->setHostname(Ljava/lang/String;)V (greylist-max-q, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->setAlpnProtocols([B)V (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->setAlpnProtocols([B)V (greylist-max-q, reflection, denied)\n" +
+                "W/.myfriendsplac: Accessing hidden method Lcom/android/org/conscrypt/OpenSSLSocketImpl;->getAlpnSelectedProtocol()[B (greylist-max-q,core-platform-api, reflection, denied)\n" +
+                "    Accessing hidden method Lcom/android/org/conscrypt/AbstractConscryptSocket;->getAlpnSelectedProtocol()[B (greylist-max-q, reflection, denied)\n" +
+                "D/CompatibilityChangeReporter: Compat change id reported: 147798919; UID 10154; state: ENABLED\n" +
+                "I/System.out: 정광영https://k.kakaocdn.net/dn/LHHI1/btqMuTNY5h9/jquzUaMoNyBc9Su3Uzf9c0/img_640x640.jpghttps://k.kakaocdn.net/dn/LHHI1/btqMuTNY5h9/jquzUaMoNyBc9Su3Uzf9c0/img_110x110.jpgnull\n" +
+                "W/Glide: Failed to find GeneratedAppGlideModule. You should include an annotationProcessor compile dependency on com.github.bumptech.glide:compiler in your application and a @GlideModule annotated AppGlideModule implementation or LibraryGlideModules will be silently ignored\n" +
+                "I/TetheringManager: registerTetheringEventCallback:com.iamyeong.myfriendsplace\n" +
+                "I/System.out: 0\n" +
+                "I/System.out: 1\n" +
+                "I/Choreographer: Skipped 30 frames!  The application may be doing too much work on its main thread."</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
