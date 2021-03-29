@@ -27,6 +27,7 @@
     <string name="login_fail_5">ㄹ5그인 해라</string>
     <string name="login_success_5">555 ㄹ5그인 성ㄱ5ㅇ</string>
     <string name="comment">댓글보기</string>
+    <string name="confirm">확인</string>
 
     <string name="post_example">"\n" +
                 "03/29 20:37:35: Launching 'app' on No Devices.\n" +

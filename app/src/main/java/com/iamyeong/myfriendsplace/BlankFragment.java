@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -22,6 +25,7 @@ public class BlankFragment extends Fragment {
     private RecyclerView recyclerView;
     private CommentAdapter adapter;
     private LinearLayoutManager layoutManager;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -70,6 +74,8 @@ public class BlankFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
 
+
+
         ArrayList<Comment> arrayList = new ArrayList<>();
         arrayList.add(new Comment("정광영", "ㅇㅇㅇㅇㅇㅇ"));
         arrayList.add(new Comment("박성빈", "진수 또 못 옴?ㅋㅋ"));
@@ -79,6 +85,8 @@ public class BlankFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+
 
 
         return view;
