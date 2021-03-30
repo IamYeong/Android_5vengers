@@ -8,10 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class WriteActivity extends AppCompatActivity {
 
     private EditText et_title, et_content;
     private Button btn;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +26,7 @@ public class WriteActivity extends AppCompatActivity {
         et_title = findViewById(R.id.et_title);
         et_content = findViewById(R.id.et_content);
         btn = findViewById(R.id.btn_write);
-        UserModel user = UserModel.getInstance();
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,9 +35,9 @@ public class WriteActivity extends AppCompatActivity {
 
                 String title = et_title.getText().toString();
                 String content = et_content.getText().toString();
-                String userName = user.getKnickName();
 
-                System.out.println(title + ", " + content + ", " + userName);
+
+                System.out.println(title + ", " + content);
 
 
 
@@ -41,4 +46,7 @@ public class WriteActivity extends AppCompatActivity {
         });
 
     }
+
+
+
 }

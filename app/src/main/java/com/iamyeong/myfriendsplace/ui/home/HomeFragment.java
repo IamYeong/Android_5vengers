@@ -16,10 +16,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firestore.v1.Write;
 import com.iamyeong.myfriendsplace.MyCardView;
 import com.iamyeong.myfriendsplace.MyRecyclerViewAdapter;
+
 import com.iamyeong.myfriendsplace.R;
 import com.iamyeong.myfriendsplace.WriteActivity;
 
@@ -32,6 +37,9 @@ public class HomeFragment extends Fragment {
     private MyRecyclerViewAdapter adapter;
     private LinearLayoutManager layoutManager;
     private FloatingActionButton fab;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DocumentReference document;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +51,10 @@ public class HomeFragment extends Fragment {
         ArrayList<MyCardView> arrayList = new ArrayList<>();
         arrayList.add(new MyCardView("다들 잘 보임?", "정광영"));
         arrayList.add(new MyCardView("5월 약속일!!!", "여인승"));
+
+
+
+
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView = root.findViewById(R.id.rv_home);
         adapter = new MyRecyclerViewAdapter(arrayList, getActivity());
@@ -65,6 +77,5 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void initializeRecyclerView(View root) {
-    }
+
 }
