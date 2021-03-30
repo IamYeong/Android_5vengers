@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private String knickName, imageURL, thumbnailURL, email;
-
+    private UserModel user = UserModel.getInstance();
 
 
     @Override
@@ -67,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
         //email = intent.getStringExtra(KeyManager.KAKAO_EMAIL);
 
         System.out.println(knickName + imageURL + thumbnailURL + email);
+
+        user.setKnickName(knickName);
+        user.setImageURL(imageURL);
+        user.setThumbnailURL(thumbnailURL);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -129,4 +133,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", " : onDestroy");
 
     }
+
+
+
 }

@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class WriteActivity extends AppCompatActivity {
 
-    private EditText editText;
+    private EditText et_title, et_content;
     private Button btn;
 
     @Override
@@ -18,16 +18,23 @@ public class WriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
 
-        editText = findViewById(R.id.et_write);
+        et_title = findViewById(R.id.et_title);
+        et_content = findViewById(R.id.et_content);
         btn = findViewById(R.id.btn_write);
+        UserModel user = UserModel.getInstance();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(WriteActivity.this, "Button click!", Toast.LENGTH_SHORT).show();
 
-                String content = editText.getText().toString();
-                //Data save
+                String title = et_title.getText().toString();
+                String content = et_content.getText().toString();
+                String userName = user.getKnickName();
+
+                System.out.println(title + ", " + content + ", " + userName);
+
+
 
                 finish();
             }
