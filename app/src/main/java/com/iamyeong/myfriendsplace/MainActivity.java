@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private String knickName, imageURL, thumbnailURL, email;
-    private UserModel user = UserModel.getInstance();
+    private UserModel user;
 
 
     @Override
@@ -67,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
         //email = intent.getStringExtra(KeyManager.KAKAO_EMAIL);
 
         System.out.println(knickName + imageURL + thumbnailURL + email);
+        user = UserModel.getInstance();
 
-        user.setKnickName(knickName);
+        user.setUserName(knickName);
         user.setImageURL(imageURL);
         user.setThumbnailURL(thumbnailURL);
 

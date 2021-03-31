@@ -12,17 +12,16 @@ public class FirestoreManager {
     public FirestoreManager() {
 
         db = FirebaseFirestore.getInstance();
+
     }
 
     public void addPost(String collectionName, String postTitle, String postContent) {
 
-        Map<String, Object> map = new HashMap<>();
-        map.put(postTitle, postContent);
-        db.collection(collectionName).document().set(map);
 
     }
 
     public void editPost() {
+
 
     }
 
