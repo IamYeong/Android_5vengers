@@ -1,6 +1,7 @@
 package com.iamyeong.myfriendsplace;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
@@ -61,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, R.string.login_success_5, Toast.LENGTH_SHORT).show();
 
         Intent intent = getIntent();
-        knickName = intent.getStringExtra(KeyManager.KAKAO_NAME);
-        imageURL = intent.getStringExtra(KeyManager.KAKAO_IMAGE_URL);
-        thumbnailURL = intent.getStringExtra(KeyManager.KAKAO_THUMBNAIL_URL);
-        //email = intent.getStringExtra(KeyManager.KAKAO_EMAIL);
+        knickName = intent.getStringExtra(getString(R.string.kakao_name_key));
+        imageURL = intent.getStringExtra(getString(R.string.kakao_image_url_key));
+        thumbnailURL = intent.getStringExtra(getString(R.string.kakao_thumbnail_url_key));
+        //email = intent.getStringExtra(getString(R.string.kakao_email_key));
 
         System.out.println(knickName + imageURL + thumbnailURL + email);
         user = UserModel.getInstance();

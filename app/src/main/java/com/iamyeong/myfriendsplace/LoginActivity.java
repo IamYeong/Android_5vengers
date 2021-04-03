@@ -80,10 +80,10 @@ public class LoginActivity extends AppCompatActivity {
                     email = user.getKakaoAccount().getEmail();
 
 
-                    intent.putExtra(KeyManager.KAKAO_NAME, knickName);
-                    intent.putExtra(KeyManager.KAKAO_IMAGE_URL, imageURL);
-                    intent.putExtra(KeyManager.KAKAO_THUMBNAIL_URL, thumbnailURL);
-                    intent.putExtra(KeyManager.KAKAO_EMAIL, email);
+                    intent.putExtra(getString(R.string.kakao_name_key), knickName);
+                    intent.putExtra(getString(R.string.kakao_image_url_key), imageURL);
+                    intent.putExtra(getString(R.string.kakao_thumbnail_url_key), thumbnailURL);
+                    intent.putExtra(getString(R.string.kakao_email_key), email);
 
                     startActivity(intent);
                     finish();

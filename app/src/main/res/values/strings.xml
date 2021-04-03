@@ -2,6 +2,10 @@
 
     <string name="kakao_native_app_key">166f21846686fa4df0ab109301328b70</string>
 
+    <string name="kakao_name_key">NAME</string>
+    <string name="kakao_email_key">EMAIL</string>
+    <string name="kakao_image_url_key">IMAGE</string>
+    <string name="kakao_thumbnail_url_key">THUMBNAIL</string>
 
     <string name="app_name">MyFriendsPlace</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

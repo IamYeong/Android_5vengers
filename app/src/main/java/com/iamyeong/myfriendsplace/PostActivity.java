@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class PostActivity extends AppCompatActivity {
 
-    private TextView tv_post;
+    private TextView tv_post, tv_comment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,7 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post);
 
         tv_post = findViewById(R.id.tv_scroll_post);
+        tv_comment = findViewById(R.id.tv_comment);
         tv_post.setText(getResources().getString(R.string.post_example));
 
         FragmentManager fragmentManager = getSupportFragmentManager();

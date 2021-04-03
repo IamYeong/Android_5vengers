@@ -1,6 +1,14 @@
 package com.iamyeong.myfriendsplace;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -9,31 +17,43 @@ import java.util.List;
 
 public class PostListGetter {
 
-    private List<MyCardView> arrayList = new ArrayList<>();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DocumentReference documentReference;
+    private CollectionReference collectionReference;
 
-    public PostListGetter() {
+
+    public PostListGetter(String collectionName) {
+
+        collectionReference = db.collection(collectionName);
 
     }
 
-    public List<MyCardView> getAllPost() {
+    public void setDocument(String documentName) {
 
-        //for문을 활용해서 get()을 계속 호출하여 arrayList에 추가해나가는 방식도 괜찮을 듯.
+        if (collectionReference == null) {
+            Log.e("PostListGetter : ", "collection reference is null");
+            return;
+        }
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("FIRST")
-                .document()
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+        documentReference = collectionReference.document(documentName);
 
-                        //toObject
-
-                    }
-                });
-
-        return arrayList;
     }
+
+    public void getAllPost() {
+
+    }
+
+    public void getPostAtDocument(String documentName) {
+ 
+        if (db == null) {
+            Log.e("Collection is :", "null");
+            return;
+        }
+
+        db.document(documentName);
+
+    }
+
 
 
 }
