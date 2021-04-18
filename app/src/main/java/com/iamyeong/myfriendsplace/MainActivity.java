@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private String knickName, imageURL, thumbnailURL, email;
+    private Long kakaoUserId;
     private UserModel user;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,17 +62,19 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, R.string.login_success_5, Toast.LENGTH_SHORT).show();
 
         Intent intent = getIntent();
+        kakaoUserId = intent.getLongExtra(getString(R.string.kakao_user_id), 0);
         knickName = intent.getStringExtra(getString(R.string.kakao_name_key));
         imageURL = intent.getStringExtra(getString(R.string.kakao_image_url_key));
         thumbnailURL = intent.getStringExtra(getString(R.string.kakao_thumbnail_url_key));
-        //email = intent.getStringExtra(getString(R.string.kakao_email_key));
+        email = intent.getStringExtra(getString(R.string.kakao_email_key));
 
-        System.out.println(knickName + imageURL + thumbnailURL + email);
+        System.out.println(kakaoUserId + ", " + knickName + ", " + imageURL + ", " + thumbnailURL + ", " + email);
         user = UserModel.getInstance();
 
         user.setUserName(knickName);
         user.setImageURL(imageURL);
         user.setThumbnailURL(thumbnailURL);
+        user.setUserId(kakaoUserId);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
 
         TextView name = headerView.findViewById(R.id.tv_name_header);
-        //TextView tv_email = headerView.findViewById(R.id.tv_address_header);
+        TextView tv_email = headerView.findViewById(R.id.tv_address_header);
         ImageView img_profile = headerView.findViewById(R.id.imageView);
 
 
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 .circleCrop()
                 .into(img_profile);
         name.setText(knickName);
-        //tv_email.setText(email);
+        tv_email.setText(email);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

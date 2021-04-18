@@ -4,6 +4,7 @@
 
     <string name="collection_name">ASSEMBLE</string>
 
+    <string name="kakao_user_id">USERID</string>
     <string name="kakao_name_key">NAME</string>
     <string name="kakao_email_key">EMAIL</string>
     <string name="kakao_image_url_key">IMAGE</string>

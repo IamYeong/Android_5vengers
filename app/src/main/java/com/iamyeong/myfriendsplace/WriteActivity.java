@@ -21,11 +21,14 @@ public class WriteActivity extends AppCompatActivity {
     private Button btn;
 
     private UserModel user;
+    private FirestoreManager firestoreManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
+
+        firestoreManager = new FirestoreManager(WriteActivity.this);
 
         et_title = findViewById(R.id.et_title);
         et_content = findViewById(R.id.et_content);
@@ -40,18 +43,14 @@ public class WriteActivity extends AppCompatActivity {
 
                 String title = et_title.getText().toString();
                 String content = et_content.getText().toString();
-                String userName = user.getUserName();
+                Long userId = user.getUserId();
 
-                System.out.println(title + ", " + userName + ", " + content);
+                System.out.println(title + ", " + userId + ", " + content);
 
-                Map<String, Object> map = new HashMap<>();
-                map.put(title, content);
+                Post post = new Post(userId, title, content);
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("FIRST").document("DOCUMENT").set(map);
-
-
-
+                db.collection(getString(R.string.collection_name)).add(post);
 
                 finish();
             }

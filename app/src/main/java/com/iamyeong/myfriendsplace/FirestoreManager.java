@@ -26,7 +26,7 @@ public class FirestoreManager {
 
     }
 
-    public void addPost(String publisher, String postTitle, String postContent) {
+    public void addPost(Long publisher, String postTitle, String postContent) {
 
         //Auto document id construct
         db.collection(storageKey)

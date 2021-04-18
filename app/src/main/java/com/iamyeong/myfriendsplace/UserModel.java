@@ -5,6 +5,7 @@ import android.util.Log;
 public class UserModel {
 
     //This class can be Builde pattern.
+    private Long userId;
     private String userName;
     private String imageURL;
     private String thumbnailURL;
@@ -48,5 +49,11 @@ public class UserModel {
         this.thumbnailURL = thumbnailURL;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
 
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

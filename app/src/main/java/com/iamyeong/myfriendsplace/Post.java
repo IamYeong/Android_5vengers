@@ -2,15 +2,15 @@ package com.iamyeong.myfriendsplace;
 
 public class Post {
 
-    private String publisher;
+    private Long publisherId;
     private String title;
     //Timestamp
     private String content;
 
 
-    public Post(String publisher, String title, String content) {
+    public Post(Long publisher, String title, String content) {
 
-        this.publisher = publisher;
+        this.publisherId = publisher;
         this.title = title;
         this.content = content;
         //this.time = time;
@@ -18,12 +18,12 @@ public class Post {
     }
 
 
-    public String getPublisher() {
-        return publisher;
+    public Long getPublisher() {
+        return publisherId;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setPublisher(Long publisher) {
+        this.publisherId = publisher;
     }
 
     public String getTitle() {

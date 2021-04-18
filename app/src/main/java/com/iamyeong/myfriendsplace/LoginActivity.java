@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
+import com.kakao.sdk.user.model.Account;
 import com.kakao.sdk.user.model.Profile;
 import com.kakao.sdk.user.model.User;
 
@@ -24,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private String knickName, imageURL, thumbnailURL, email;
+    private Long userKakaoId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +76,15 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                    knickName = user.getKakaoAccount().getProfile().getNickname();
-                    imageURL = user.getKakaoAccount().getProfile().getProfileImageUrl();
-                    thumbnailURL = user.getKakaoAccount().getProfile().getThumbnailImageUrl();
-                    email = user.getKakaoAccount().getEmail();
+                    Account kakaoAccount = user.getKakaoAccount();
 
+                    userKakaoId = user.getId();
+                    knickName = kakaoAccount.getProfile().getNickname();
+                    imageURL = kakaoAccount.getProfile().getProfileImageUrl();
+                    thumbnailURL = kakaoAccount.getProfile().getThumbnailImageUrl();
+                    email = kakaoAccount.getEmail();
 
+                    intent.putExtra(getString(R.string.kakao_user_id), userKakaoId);
                     intent.putExtra(getString(R.string.kakao_name_key), knickName);
                     intent.putExtra(getString(R.string.kakao_image_url_key), imageURL);
                     intent.putExtra(getString(R.string.kakao_thumbnail_url_key), thumbnailURL);
