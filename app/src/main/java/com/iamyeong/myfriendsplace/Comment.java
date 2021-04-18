@@ -2,21 +2,21 @@ package com.iamyeong.myfriendsplace;
 
 public class Comment {
 
-    private String user;
+    private Long userKakaoId;
     private String comment;
     //Time stamp
 
-    public Comment(String user, String comment) {
-        this.user = user;
+    public Comment(Long userId, String comment) {
+        this.userKakaoId = userId;
         this.comment = comment;
     }
 
-    public String getUser() {
-        return user;
+    public Long getUserKakaoId() {
+        return userKakaoId;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserKakaoId(Long userKakaoId) {
+        this.userKakaoId = userKakaoId;
     }
 
     public String getComment() {

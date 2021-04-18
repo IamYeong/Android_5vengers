@@ -49,8 +49,7 @@ public class WriteActivity extends AppCompatActivity {
 
                 Post post = new Post(userId, title, content);
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection(getString(R.string.collection_name)).add(post);
+                firestoreManager.addPost(post);
 
                 finish();
             }

@@ -26,11 +26,11 @@ public class FirestoreManager {
 
     }
 
-    public void addPost(Long publisher, String postTitle, String postContent) {
+    public void addPost(Post post) {
 
         //Auto document id construct
         db.collection(storageKey)
-                .add(new Post(publisher, postTitle, postContent));
+                .add(post);
 
     }
 
@@ -45,11 +45,11 @@ public class FirestoreManager {
     }
 
 
-    public void addComment(String document, String user, String comment) {
+    public void addComment(Comment comment) {
 
-        db.collection(storageKey).document(document)
-                .collection(document)
-                .add(new Comment(user, comment));
+        db.collection(storageKey).document("1joGN0UYqdtMlWUjQNax")
+                .collection(storageKey)
+                .add(comment);
 
     }
 
