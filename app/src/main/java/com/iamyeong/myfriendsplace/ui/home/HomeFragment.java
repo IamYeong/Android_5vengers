@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firestore.v1.Write;
+import com.iamyeong.myfriendsplace.FirestoreManager;
 import com.iamyeong.myfriendsplace.MyCardView;
 import com.iamyeong.myfriendsplace.MyRecyclerViewAdapter;
 
@@ -39,20 +40,20 @@ public class HomeFragment extends Fragment {
     private FloatingActionButton fab;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference document;
-
-
+    private FirestoreManager firestoreManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        firestoreManager = new FirestoreManager(getActivity());
+        firestoreManager.getPosts();
 
         fab = root.findViewById(R.id.fab_home);
 
         ArrayList<MyCardView> arrayList = new ArrayList<>();
         arrayList.add(new MyCardView("다들 잘 보임?", "정광영"));
         arrayList.add(new MyCardView("5월 약속일!!!", "여인승"));
-
-
 
 
         layoutManager = new LinearLayoutManager(getActivity());

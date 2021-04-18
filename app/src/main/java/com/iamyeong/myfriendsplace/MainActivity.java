@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private String knickName, imageURL, thumbnailURL, email;
     private Long kakaoUserId;
     private UserModel user;
+    private FirestoreManager firestoreManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         user.setThumbnailURL(thumbnailURL);
         user.setUserId(kakaoUserId);
 
+        firestoreManager = new FirestoreManager(MainActivity.this);
+        firestoreManager.getPosts();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
