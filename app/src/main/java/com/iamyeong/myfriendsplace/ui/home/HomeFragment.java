@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,7 +33,7 @@ import com.iamyeong.myfriendsplace.WriteActivity;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private HomeViewModel homeViewModel;
     private RecyclerView recyclerView;
@@ -42,10 +43,13 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference document;
     private FirestoreManager firestoreManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        swipeRefreshLayout = root.findViewById(R.id.swipe_home);
+        swipeRefreshLayout.setOnRefreshListener(HomeFragment.this);
 
         firestoreManager = FirestoreManager.getInstance(getActivity());
         firestoreManager.getPosts();
@@ -81,5 +85,11 @@ public class HomeFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
         Log.d("HomeFragment : ", "onResume");
+    }
+
+    @Override
+    public void onRefresh() {
+        Toast.makeText(getActivity(), "Refresh!", Toast.LENGTH_SHORT).show();
+        adapter.notifyDataSetChanged();
     }
 }
