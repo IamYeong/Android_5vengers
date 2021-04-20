@@ -2,6 +2,7 @@ package com.iamyeong.myfriendsplace.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firestore.v1.Write;
 import com.iamyeong.myfriendsplace.FirestoreManager;
-import com.iamyeong.myfriendsplace.MyCardView;
+
 import com.iamyeong.myfriendsplace.MyRecyclerViewAdapter;
 
 import com.iamyeong.myfriendsplace.R;
@@ -49,18 +50,15 @@ public class HomeFragment extends Fragment {
         firestoreManager = FirestoreManager.getInstance(getActivity());
         firestoreManager.getPosts();
 
+
         fab = root.findViewById(R.id.fab_home);
-
-        ArrayList<MyCardView> arrayList = new ArrayList<>();
-        arrayList.add(new MyCardView("다들 잘 보임?", "정광영"));
-        arrayList.add(new MyCardView("5월 약속일!!!", "여인승"));
-
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView = root.findViewById(R.id.rv_home);
-        adapter = new MyRecyclerViewAdapter(arrayList, getActivity());
+        adapter = new MyRecyclerViewAdapter(firestoreManager.postList, getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +75,11 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
-
+        adapter.notifyDataSetChanged();
+        Log.d("HomeFragment : ", "onResume");
+    }
 }

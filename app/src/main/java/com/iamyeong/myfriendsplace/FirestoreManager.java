@@ -26,7 +26,7 @@ public class FirestoreManager {
     private static String storageKey;
     private CollectionReference collectionReference;
     private DocumentReference documentReference;
-    private List<Post> postList = new ArrayList<>();
+    public static ArrayList<Post> postList = new ArrayList<>();
 
     private FirestoreManager() {}
 

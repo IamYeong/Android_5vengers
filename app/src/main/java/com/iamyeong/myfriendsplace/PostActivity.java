@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -12,15 +13,19 @@ import android.widget.Toast;
 public class PostActivity extends AppCompatActivity {
 
     private TextView tv_post, tv_comment;
+    private Post post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        Intent intent = getIntent();
+        post = (Post) intent.getSerializableExtra("POSTBUNDLE");
+
         tv_post = findViewById(R.id.tv_scroll_post);
         tv_comment = findViewById(R.id.tv_comment);
-        tv_post.setText(getResources().getString(R.string.post_example));
+        tv_post.setText(post.getContent());
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

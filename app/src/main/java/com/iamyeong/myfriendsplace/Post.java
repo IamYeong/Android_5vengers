@@ -1,9 +1,14 @@
 package com.iamyeong.myfriendsplace;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Post {
+@SuppressWarnings("serial")
+public class Post implements Serializable {
 
     private long publisherId;
     private String title;
@@ -11,7 +16,11 @@ public class Post {
     private String content;
     private String postId;
 
+
+
     public Post() {}
+
+
 
     //For post add
     public Post(Long publisher, String title, String content) {
@@ -34,6 +43,8 @@ public class Post {
         this.times = time;
 
     }
+
+
 
     public String getPostId() {
         return postId;

@@ -2,6 +2,7 @@ package com.iamyeong.myfriendsplace;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
-    private ArrayList<MyCardView> arrayList;
+    private ArrayList<Post> arrayList;
     private Context context;
 
-    public MyRecyclerViewAdapter(ArrayList<MyCardView> arrayList, Context context) {
+    public MyRecyclerViewAdapter(ArrayList<Post> arrayList, Context context) {
 
         this.context = context;
         this.arrayList = arrayList;
@@ -39,18 +41,22 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.title.setText(arrayList.get(position).getTitle());
-        holder.user.setText(arrayList.get(position).getUser());
+        Post post = arrayList.get(position);
 
-        String m = Integer.toString(position);
-        System.out.println(m);
+        holder.title.setText(post.getTitle());
+
+        String dd = post.getPublisher().toString();
+        holder.user.setText(dd);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context, m, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, PostActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("POSTBUNDLE", post);
+                intent.putExtras(bundle);
+
                 context.startActivity(intent);
 
             }
