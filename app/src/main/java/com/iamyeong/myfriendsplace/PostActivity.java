@@ -31,7 +31,7 @@ public class PostActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
 
-        tv_post.setOnClickListener(new View.OnClickListener() {
+        tv_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(PostActivity.this, "Comment Fragment createView", Toast.LENGTH_SHORT).show();
@@ -42,6 +42,13 @@ public class PostActivity extends AppCompatActivity {
                         .commit();
             }
         });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
 
     }

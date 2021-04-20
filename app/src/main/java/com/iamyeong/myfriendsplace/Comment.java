@@ -1,14 +1,27 @@
 package com.iamyeong.myfriendsplace;
 
+import java.util.Date;
+
 public class Comment {
 
-    private Long userKakaoId;
+    private long userKakaoId;
     private String comment;
-    //Time stamp
+    private long times;
 
-    public Comment(Long userId, String comment) {
+    public Comment() {}
+
+    public Comment(long userId, String comment) {
         this.userKakaoId = userId;
         this.comment = comment;
+        Date date = new Date();
+        times = date.getTime();
+    }
+
+    public Comment(long userId, String comment, long time) {
+        this.userKakaoId = userId;
+        this.comment = comment;
+        this.times = time;
+
     }
 
     public Long getUserKakaoId() {

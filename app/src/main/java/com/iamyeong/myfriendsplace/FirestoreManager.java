@@ -26,7 +26,6 @@ public class FirestoreManager {
     private static String storageKey;
     private CollectionReference collectionReference;
     private DocumentReference documentReference;
-    public static ArrayList<Post> postList = new ArrayList<>();
 
     private FirestoreManager() {}
 
@@ -52,7 +51,9 @@ public class FirestoreManager {
 
     }
 
-    public void getPosts() {
+    public ArrayList<Post> getPosts() {
+
+        ArrayList<Post> postList = new ArrayList<>();
 
         //Get all document at this collection.
         db.collection(storageKey)
@@ -64,7 +65,7 @@ public class FirestoreManager {
 
                         if (task.isSuccessful()) {
 
-                            postList.clear();
+                            //postList.clear();
                             for ( QueryDocumentSnapshot document : task.getResult()) {
 
 
@@ -79,7 +80,6 @@ public class FirestoreManager {
                                 Post post = new Post(documentId, publisherId, title, content, times);
 
 
-
                                 postList.add(post);
 
                             }
@@ -92,6 +92,7 @@ public class FirestoreManager {
                     }
                 });
 
+        return postList;
     }
 
     public void editPost() {
@@ -117,7 +118,12 @@ public class FirestoreManager {
 
     }
 
-    public void getComments() {
+    public void getComments(String documentId) {
+
+        db.collection(storageKey).document(documentId)
+                .collection()
+                .get();
+        //addOnCompleteListener
 
     }
 
