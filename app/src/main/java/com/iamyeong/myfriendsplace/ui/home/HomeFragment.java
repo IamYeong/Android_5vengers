@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        firestoreManager = new FirestoreManager(getActivity());
+        firestoreManager = FirestoreManager.getInstance(getActivity());
         firestoreManager.getPosts();
 
         fab = root.findViewById(R.id.fab_home);

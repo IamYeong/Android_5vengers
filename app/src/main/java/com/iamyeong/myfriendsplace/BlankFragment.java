@@ -78,7 +78,7 @@ public class BlankFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
 
-        firestoreManager = new FirestoreManager(getActivity());
+        firestoreManager = FirestoreManager.getInstance(getActivity());
 
         button = view.findViewById(R.id.btn_comment);
         editText = view.findViewById(R.id.et_comment);

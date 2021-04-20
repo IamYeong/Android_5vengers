@@ -14,22 +14,33 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FirestoreManager {
 
-    private FirebaseFirestore db;
-    private Context context;
-    private String storageKey;
+    private static FirestoreManager firestoreManager;
+    private static FirebaseFirestore db;
+    private static String storageKey;
     private CollectionReference collectionReference;
     private DocumentReference documentReference;
+    private List<Post> postList = new ArrayList<>();
 
-    public FirestoreManager(Context activityContext) {
+    private FirestoreManager() {}
 
-        this.context = activityContext;
-        db = FirebaseFirestore.getInstance();
-        storageKey = context.getString(R.string.collection_name);
+    public static FirestoreManager getInstance(Context context) {
+
+        if (firestoreManager == null) {
+            firestoreManager = new FirestoreManager();
+
+            db = FirebaseFirestore.getInstance();
+            storageKey = context.getString(R.string.collection_name);
+
+        }
+
+        return firestoreManager;
 
     }
 
@@ -53,19 +64,33 @@ public class FirestoreManager {
 
                         if (task.isSuccessful()) {
 
+                            postList.clear();
                             for ( QueryDocumentSnapshot document : task.getResult()) {
-                                System.out.println(document.getId() + ", " + document.getData());
+
+
+                                String title = (String) document.getData().get("title");
+                                String content = (String) document.getData().get("content");
+                                long publisherId = (Long) document.getData().get("publisher");
+                                long times = (Long) document.getData().get("times");
+                                String documentId = document.getId();
+
+                                System.out.println(documentId + ", " + publisherId + ", " + title + ", " + content + ", " + times);
+
+                                Post post = new Post(documentId, publisherId, title, content, times);
+
+
+
+                                postList.add(post);
 
                             }
+
+                            System.out.println(postList.size());
 
 
                         }
 
                     }
                 });
-
-
-
 
     }
 

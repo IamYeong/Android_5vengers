@@ -28,7 +28,7 @@ public class WriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
 
-        firestoreManager = new FirestoreManager(WriteActivity.this);
+        firestoreManager = FirestoreManager.getInstance(WriteActivity.this);
 
         et_title = findViewById(R.id.et_title);
         et_content = findViewById(R.id.et_content);
