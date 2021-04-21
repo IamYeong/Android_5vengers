@@ -1,6 +1,7 @@
 package com.iamyeong.myfriendsplace;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -27,6 +28,9 @@ public class PostActivity extends AppCompatActivity {
         tv_comment = findViewById(R.id.tv_comment);
         tv_post.setText(post.getContent());
 
+        Bundle bundle = new Bundle();
+        bundle.putString("DOCUMENT", post.getPostId());
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
@@ -36,8 +40,11 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(PostActivity.this, "Comment Fragment createView", Toast.LENGTH_SHORT).show();
 
+                BlankFragment blankFragment = new BlankFragment();
+                blankFragment.setArguments(bundle);
+
                 transaction
-                        .add(R.id.constraint_post_activity, new BlankFragment())
+                        .add(R.id.constraint_post_activity, blankFragment)
                         .addToBackStack(null)
                         .commit();
             }

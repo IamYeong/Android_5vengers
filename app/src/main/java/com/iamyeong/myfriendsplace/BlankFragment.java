@@ -31,6 +31,7 @@ public class BlankFragment extends Fragment {
     private Button button;
     private EditText editText;
     private FirestoreManager firestoreManager;
+    private ArrayList<Comment> comments;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,19 +78,20 @@ public class BlankFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
+        String documentId = getArguments().getString("DOCUMENT");
 
         firestoreManager = FirestoreManager.getInstance(getActivity());
+        UserModel user = UserModel.getInstance();
 
         button = view.findViewById(R.id.btn_comment);
         editText = view.findViewById(R.id.et_comment);
 
 
-        ArrayList<Comment> arrayList = new ArrayList<>();
-        arrayList.add(new Comment((long)0, "ㅇㅇㅇㅇㅇㅇ"));
-        arrayList.add(new Comment((long)0, "진수 또 못 옴?ㅋㅋ"));
+        comments = firestoreManager.getComments(documentId);
+
 
         recyclerView = view.findViewById(R.id.rv_comment);
-        adapter = new CommentAdapter(arrayList, getActivity());
+        adapter = new CommentAdapter(comments, getActivity());
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -98,14 +100,14 @@ public class BlankFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String comment = editText.getText().toString();
-                long userId = UserModel.getInstance().getUserId();
+                long userId = user.getUserId();
                 Comment commentObject = new Comment(userId, comment);
 
-                firestoreManager.addComment(commentObject);
+                firestoreManager.addComment(documentId, commentObject);
+
+                commentNotify(documentId);
 
                 editText.setText("");
-                adapter.notifyDataSetChanged();
-
                 Toast.makeText(getActivity(), "완료", Toast.LENGTH_SHORT).show();
 
             }
@@ -115,4 +117,13 @@ public class BlankFragment extends Fragment {
 
         return view;
     }
+
+    private void commentNotify(String documentId) {
+
+        comments = firestoreManager.getComments(documentId);
+        adapter.notifyDataSetChanged();
+
+
+    }
+
 }

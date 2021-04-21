@@ -24,6 +24,8 @@ public class FirestoreManager {
     private static FirestoreManager firestoreManager;
     private static FirebaseFirestore db;
     private static String storageKey;
+    private static String downsideCollectionId;
+    private static String userCollectionId;
     private CollectionReference collectionReference;
     private DocumentReference documentReference;
 
@@ -36,6 +38,9 @@ public class FirestoreManager {
 
             db = FirebaseFirestore.getInstance();
             storageKey = context.getString(R.string.collection_name);
+            downsideCollectionId = context.getString(R.string.down_collection_name);
+            userCollectionId = context.getString(R.string.users);
+
 
         }
 
@@ -106,10 +111,10 @@ public class FirestoreManager {
     }
 
 
-    public void addComment(Comment comment) {
+    public void addComment(String documentId, Comment comment) {
 
-        db.collection(storageKey).document("1joGN0UYqdtMlWUjQNax")
-                .collection(storageKey)
+        db.collection(storageKey).document(documentId)
+                .collection(downsideCollectionId)
                 .add(comment);
 
     }
@@ -118,12 +123,40 @@ public class FirestoreManager {
 
     }
 
-    public void getComments(String documentId) {
+    public ArrayList<Comment> getComments(String documentId) {
+
+        ArrayList<Comment> commentList = new ArrayList<>();
 
         db.collection(storageKey).document(documentId)
-                .collection()
-                .get();
-        //addOnCompleteListener
+                .collection(downsideCollectionId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if (task.isSuccessful()) {
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                long time = (Long) document.getData().get("times");
+                                long userId = (Long) document.getData().get("userKakaoId");
+                                String content = (String) document.getData().get("comment");
+
+                                System.out.println(time + ", " + userId + ", " + content);
+
+                                Comment comment = new Comment(userId, content, time);
+
+                                commentList.add(comment);
+
+
+                            }
+
+                        }
+
+                    }
+                });
+
+        return commentList;
 
     }
 

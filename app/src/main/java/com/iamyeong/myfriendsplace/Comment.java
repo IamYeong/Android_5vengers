@@ -24,11 +24,19 @@ public class Comment {
 
     }
 
+    public long getTimes() {
+        return times;
+    }
+
+    public void setTimes(long times) {
+        this.times = times;
+    }
+
     public Long getUserKakaoId() {
         return userKakaoId;
     }
 
-    public void setUserKakaoId(Long userKakaoId) {
+    public void setUserKakaoId(long userKakaoId) {
         this.userKakaoId = userKakaoId;
     }
 
