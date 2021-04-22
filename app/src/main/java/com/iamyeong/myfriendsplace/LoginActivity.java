@@ -11,11 +11,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
 import com.kakao.sdk.user.model.Profile;
 import com.kakao.sdk.user.model.User;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
@@ -26,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private String knickName, imageURL, thumbnailURL, email;
     private Long userKakaoId;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +109,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+
 
 
 

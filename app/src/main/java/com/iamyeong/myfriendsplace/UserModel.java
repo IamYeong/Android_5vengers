@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class UserModel {
 
-    //This class can be Builde pattern.
+    //This class can be Builder pattern.
     private Long userId;
     private String userName;
     private String imageURL;
