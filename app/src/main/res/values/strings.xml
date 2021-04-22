@@ -5,6 +5,7 @@
     <string name="collection_name">ASSEMBLE</string>
     <string name="down_collection_name">COMMENTS</string>
     <string name="users">USERS</string>
+    <string name="users_document">USERSDOCUMENT</string>
 
     <string name="kakao_user_id">USERID</string>
     <string name="kakao_name_key">NAME</string>

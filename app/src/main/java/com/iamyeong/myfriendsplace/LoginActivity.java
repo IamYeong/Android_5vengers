@@ -27,15 +27,17 @@ import kotlin.jvm.functions.Function2;
 
 public class LoginActivity extends AppCompatActivity {
 
-
     private String knickName, imageURL, thumbnailURL, email;
     private Long userKakaoId;
     private FirebaseFirestore db;
+    private UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        userManager = new UserManager(LoginActivity.this);
 
          Function2<OAuthToken, Throwable, Unit> function2 = new Function2<OAuthToken, Throwable, Unit>() {
             @Override
@@ -88,6 +90,8 @@ public class LoginActivity extends AppCompatActivity {
                     imageURL = kakaoAccount.getProfile().getProfileImageUrl();
                     thumbnailURL = kakaoAccount.getProfile().getThumbnailImageUrl();
                     email = kakaoAccount.getEmail();
+
+                    userManager.setUser(userKakaoId, knickName);
 
                     intent.putExtra(getString(R.string.kakao_user_id), userKakaoId);
                     intent.putExtra(getString(R.string.kakao_name_key), knickName);

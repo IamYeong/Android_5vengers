@@ -20,6 +20,7 @@ import java.util.Map;
 public class UserManager {
 
     private final String userCollection;
+    private final String userDocument;
     private String strUserName;
     private FirebaseFirestore db;
     private CollectionReference collection;
@@ -28,6 +29,7 @@ public class UserManager {
     public UserManager(Context activityContext) {
 
         userCollection = activityContext.getString(R.string.users);
+        userDocument = activityContext.getString(R.string.users_document);
         db = FirebaseFirestore.getInstance();
     }
 
@@ -39,7 +41,7 @@ public class UserManager {
         userMap.put(strId, knickName);
 
         db.collection(userCollection)
-                .document(strUserName)
+                .document(userDocument)
                 .set(userMap, SetOptions.merge());
 
     }
@@ -49,7 +51,7 @@ public class UserManager {
         String strId = toStringUserId(userId);
 
         db.collection(userCollection)
-                .document(strUserName)
+                .document(userDocument)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -58,14 +60,15 @@ public class UserManager {
                         if (task.isSuccessful()) {
 
                             DocumentSnapshot doc = task.getResult();
-                            String dd = (String) doc.get(strId);
-                            strUserName = dd;
+                            strUserName = (String) doc.getData().get(strId);
+                            System.out.println("*&&&&&&&&&&&&&^^^^^^^^^^^$$$$$$$$$$$" + strUserName);
 
                         }
 
                     }
                 });
 
+        System.out.println("%%%%%%%%%%%%%%%5" + strUserName);
         return strUserName;
     }
 

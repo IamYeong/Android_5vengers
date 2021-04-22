@@ -25,6 +25,7 @@ import com.iamyeong.myfriendsplace.MyRecyclerViewAdapter;
 
 import com.iamyeong.myfriendsplace.Post;
 import com.iamyeong.myfriendsplace.R;
+import com.iamyeong.myfriendsplace.UserManager;
 import com.iamyeong.myfriendsplace.WriteActivity;
 
 import java.util.ArrayList;
@@ -42,10 +43,13 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<Post> postList;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         swipeRefreshLayout = root.findViewById(R.id.swipe_home);
+
+
 
         firestoreManager = FirestoreManager.getInstance(getActivity());
         postList = firestoreManager.getPosts();

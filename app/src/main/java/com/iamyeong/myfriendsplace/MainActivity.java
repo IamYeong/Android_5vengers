@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private Long kakaoUserId;
     private UserModel user;
     private FirestoreManager firestoreManager;
+    private UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toast.makeText(MainActivity.this, R.string.login_success_5, Toast.LENGTH_SHORT).show();
+        userManager = new UserManager(MainActivity.this);
 
         Intent intent = getIntent();
         kakaoUserId = intent.getLongExtra(getString(R.string.kakao_user_id), 0);
