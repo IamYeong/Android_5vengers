@@ -52,10 +52,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         holder.title.setText(post.getTitle());
 
-        checkUserData(userId);
-
-        String dd = post.getPublisher().toString();
-        holder.user.setText(dd);
+        String userName = getUserName(userId);
+        holder.user.setText(userName);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,8 +89,17 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private String getUserName(long userId) {
 
+        if (checkUserData(userId)) {
 
-        return "";
+            return userMap.get(userId);
+
+        }
+
+        String name = userManager.toUserName(userId);
+        System.out.println(userId + ", " + name);
+        userMap.put(userId, name);
+
+        return name;
 
     }
 
