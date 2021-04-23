@@ -29,6 +29,7 @@ import com.iamyeong.myfriendsplace.UserManager;
 import com.iamyeong.myfriendsplace.WriteActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HomeFragment extends Fragment {
 
@@ -49,10 +50,9 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         swipeRefreshLayout = root.findViewById(R.id.swipe_home);
 
-
-
         firestoreManager = FirestoreManager.getInstance(getActivity());
         postList = firestoreManager.getPosts();
+        Collections.sort(postList);
 
         fab = root.findViewById(R.id.fab_home);
 

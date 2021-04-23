@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+
 public class PostActivity extends AppCompatActivity {
 
-    private TextView tv_post, tv_comment;
+    private TextView tv_post, tv_comment, tv_time;
     private Post post;
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +27,13 @@ public class PostActivity extends AppCompatActivity {
         Intent intent = getIntent();
         post = (Post) intent.getSerializableExtra("POSTBUNDLE");
 
+        long time = post.getTimes();
+
         tv_post = findViewById(R.id.tv_scroll_post);
         tv_comment = findViewById(R.id.tv_comment);
+        tv_time = findViewById(R.id.tv_post_time);
+
+        tv_time.setText(formatter.format(time));
         tv_post.setText(post.getContent());
 
         Bundle bundle = new Bundle();

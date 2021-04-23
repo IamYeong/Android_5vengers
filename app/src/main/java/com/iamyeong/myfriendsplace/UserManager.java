@@ -61,14 +61,12 @@ public class UserManager {
 
                             DocumentSnapshot doc = task.getResult();
                             strUserName = (String) doc.getData().get(strId);
-                            System.out.println("*&&&&&&&&&&&&&^^^^^^^^^^^$$$$$$$$$$$" + strUserName);
 
                         }
 
                     }
                 });
 
-        System.out.println("%%%%%%%%%%%%%%%5" + strUserName);
         return strUserName;
     }
 

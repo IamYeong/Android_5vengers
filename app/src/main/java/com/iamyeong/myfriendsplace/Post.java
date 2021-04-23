@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class Post implements Serializable {
+public class Post implements Serializable, Comparable<Post> {
 
     private long publisherId;
     private String title;
@@ -44,7 +44,22 @@ public class Post implements Serializable {
 
     }
 
+    @Override
+    public int compareTo(Post o) {
 
+        long time1 = this.times;
+        long time2 = o.times;
+
+        if (time1 < time2) {
+
+            return 1;
+        } else if (time1 > time2) {
+
+            return -1;
+        }
+
+        return 0;
+    }
 
     public String getPostId() {
         return postId;

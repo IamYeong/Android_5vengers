@@ -14,17 +14,23 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private ArrayList<Post> arrayList;
     private Context context;
+    private UserManager userManager;
+    private Map<Long, String> userMap;
 
     public MyRecyclerViewAdapter(ArrayList<Post> arrayList, Context context) {
 
         this.context = context;
         this.arrayList = arrayList;
+        this.userManager = new UserManager(context);
+        this.userMap = new HashMap<>();
 
     }
 
@@ -42,8 +48,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Post post = arrayList.get(position);
+        long userId = post.getPublisher();
 
         holder.title.setText(post.getTitle());
+
+        checkUserData(userId);
 
         String dd = post.getPublisher().toString();
         holder.user.setText(dd);
@@ -69,6 +78,24 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public int getItemCount() {
         return (arrayList != null? arrayList.size() : 0);
     }
+
+    private boolean checkUserData(long userId) {
+
+        if (userMap.containsKey(userId)) {
+            return true;
+        }
+
+        return false;
+
+    }
+
+    private String getUserName(long userId) {
+
+
+        return "";
+
+    }
+
 }
 
 class MyViewHolder extends RecyclerView.ViewHolder {
