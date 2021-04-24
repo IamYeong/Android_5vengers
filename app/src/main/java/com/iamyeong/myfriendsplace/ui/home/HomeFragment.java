@@ -62,6 +62,9 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
+        System.out.println("^^^^^^^^^^^^^^HomeFragment recyclerview ready");
+        //Need async (setAdapter() -> async -> notifyData())
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -101,6 +104,7 @@ public class HomeFragment extends Fragment {
 
         postList.clear();
         postList = firestoreManager.getPosts();
+        Collections.sort(postList);
         adapter.notifyDataSetChanged();
 
     }

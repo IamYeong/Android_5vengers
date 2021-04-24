@@ -95,6 +95,7 @@ public class BlankFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        System.out.println("^^^^^^^^^^^^^^Blank flagment is ready");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

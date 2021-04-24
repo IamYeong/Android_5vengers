@@ -9,6 +9,20 @@
     tools:context=".PostActivity">
 
     <TextView
+        android:id="@+id/tv_title_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        android:textStyle="bold"
+        android:textSize="30dp"
+
+        android:textColor="@color/design_default_color_primary"
+        />
+
+    <TextView
         android:id="@+id/tv_post_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
