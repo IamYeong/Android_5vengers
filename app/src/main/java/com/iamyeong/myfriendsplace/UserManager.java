@@ -48,25 +48,34 @@ public class UserManager {
 
     public String toUserName(long userId) {
 
-        String strId = toStringUserId(userId);
+        OnCompleteListener<DocumentSnapshot> onCompleteListener = new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                System.out.println("onComplete");
+
+                if (task.isSuccessful()) {
+
+                    String strId = toStringUserId(userId);
+                    System.out.println(strId);
+
+                    DocumentSnapshot doc = task.getResult();
+                    System.out.println(doc);
+
+                    strUserName = (String) doc.getData().get(strId);
+                    System.out.println(strUserName + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+                }
+            }
+        };
+
+        System.out.println(onCompleteListener);
 
         db.collection(userCollection)
                 .document(userDocument)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                .addOnCompleteListener(onCompleteListener);
 
-                        if (task.isSuccessful()) {
-
-                            DocumentSnapshot doc = task.getResult();
-                            strUserName = (String) doc.getData().get(strId);
-
-                        }
-
-                    }
-                });
-
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@" + strUserName);
         return strUserName;
     }
 

@@ -26,8 +26,10 @@ public class FirestoreManager {
     private static String storageKey;
     private static String downsideCollectionId;
     private static String userCollectionId;
-    private CollectionReference collectionReference;
-    private DocumentReference documentReference;
+    private ArrayList<Post> arrayList = new ArrayList<>();
+    private ArrayList<Comment> commentList = new ArrayList<>();
+    private Context context;
+
 
     private FirestoreManager() {}
 
@@ -41,7 +43,6 @@ public class FirestoreManager {
             downsideCollectionId = context.getString(R.string.down_collection_name);
             userCollectionId = context.getString(R.string.users);
 
-
         }
 
         return firestoreManager;
@@ -54,6 +55,11 @@ public class FirestoreManager {
         db.collection(storageKey)
                 .add(post);
 
+    }
+
+    public ArrayList<Post> requestPosts() {
+
+        return arrayList;
     }
 
     public ArrayList<Post> getPosts() {
@@ -73,31 +79,26 @@ public class FirestoreManager {
                             //postList.clear();
                             for ( QueryDocumentSnapshot document : task.getResult()) {
 
-
                                 String title = (String) document.getData().get("title");
                                 String content = (String) document.getData().get("content");
                                 long publisherId = (Long) document.getData().get("publisher");
                                 long times = (Long) document.getData().get("times");
                                 String documentId = document.getId();
 
-                                System.out.println(documentId + ", " + publisherId + ", " + title + ", " + content + ", " + times);
+                                System.out.println("FirestoreManager : " + documentId + ", " + publisherId + ", " + title + ", " + content + ", " + times);
 
                                 Post post = new Post(documentId, publisherId, title, content, times);
 
-
-                                postList.add(post);
+                                arrayList.add(post);
 
                             }
-
-                            System.out.println(postList.size());
-
 
                         }
 
                     }
                 });
 
-        return postList;
+        return arrayList;
     }
 
     public void editPost() {
@@ -124,8 +125,6 @@ public class FirestoreManager {
     }
 
     public ArrayList<Comment> getComments(String documentId) {
-
-        ArrayList<Comment> commentList = new ArrayList<>();
 
         db.collection(storageKey).document(documentId)
                 .collection(downsideCollectionId)

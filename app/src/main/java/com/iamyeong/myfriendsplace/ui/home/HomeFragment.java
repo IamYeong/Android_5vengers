@@ -1,12 +1,14 @@
 package com.iamyeong.myfriendsplace.ui.home;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,17 +21,24 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.j2objc.annotations.Weak;
+import com.iamyeong.myfriendsplace.Comment;
+import com.iamyeong.myfriendsplace.CommentAdapter;
 import com.iamyeong.myfriendsplace.FirestoreManager;
 
 import com.iamyeong.myfriendsplace.MyRecyclerViewAdapter;
 
 import com.iamyeong.myfriendsplace.Post;
 import com.iamyeong.myfriendsplace.R;
-import com.iamyeong.myfriendsplace.UserManager;
 import com.iamyeong.myfriendsplace.WriteActivity;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import kotlinx.coroutines.CoroutineScope;
+import kotlinx.coroutines.Dispatchers;
+import kotlinx.coroutines.GlobalScope;
 
 public class HomeFragment extends Fragment {
 
@@ -39,7 +48,6 @@ public class HomeFragment extends Fragment {
     private LinearLayoutManager layoutManager;
     private FloatingActionButton fab;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DocumentReference document;
     private FirestoreManager firestoreManager;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<Post> postList;
@@ -49,26 +57,23 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         swipeRefreshLayout = root.findViewById(R.id.swipe_home);
+        fab = root.findViewById(R.id.fab_home);
 
         firestoreManager = FirestoreManager.getInstance(getActivity());
         postList = firestoreManager.getPosts();
-        Collections.sort(postList);
-
-        fab = root.findViewById(R.id.fab_home);
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView = root.findViewById(R.id.rv_home);
-        adapter = new MyRecyclerViewAdapter(postList, getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        adapter = new MyRecyclerViewAdapter(postList, getActivity());
         recyclerView.setAdapter(adapter);
 
-        System.out.println("^^^^^^^^^^^^^^HomeFragment recyclerview ready");
-        //Need async (setAdapter() -> async -> notifyData())
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adapterNotification();
+
+                adapter.notifyDataSetChanged();
 
                 swipeRefreshLayout.setRefreshing(false);
 
@@ -95,19 +100,13 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        adapterNotification();
+        adapter.notifyDataSetChanged();
         Log.d("HomeFragment : ", "onResume");
     }
 
-    private void adapterNotification() {
 
-        postList.clear();
-        postList = firestoreManager.getPosts();
-        Collections.sort(postList);
-        adapter.notifyDataSetChanged();
 
-    }
+
 
 
 }

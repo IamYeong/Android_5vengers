@@ -15,9 +15,11 @@ import java.text.SimpleDateFormat;
 
 public class PostActivity extends AppCompatActivity {
 
-    private TextView tv_post, tv_comment, tv_time, tv_title;
+    private TextView tv_post, tv_comment, tv_time, tv_title, tv_publisher;
     private Post post;
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    private UserManager userManager;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +29,20 @@ public class PostActivity extends AppCompatActivity {
         Intent intent = getIntent();
         post = (Post) intent.getSerializableExtra("POSTBUNDLE");
 
+        userManager = new UserManager(PostActivity.this);
+        name = userManager.toUserName(post.getPublisher());
         long time = post.getTimes();
 
         tv_post = findViewById(R.id.tv_scroll_post);
         tv_comment = findViewById(R.id.tv_comment);
         tv_time = findViewById(R.id.tv_post_time);
         tv_title = findViewById(R.id.tv_title_post);
+        tv_publisher = findViewById(R.id.tv_post_publisher);
 
         tv_time.setText(formatter.format(time));
         tv_post.setText(post.getContent());
         tv_title.setText(post.getTitle());
+        tv_publisher.setText(name);
 
         Bundle bundle = new Bundle();
         bundle.putString("DOCUMENT", post.getPostId());
@@ -66,6 +72,8 @@ public class PostActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        tv_publisher.setText(name);
 
 
     }

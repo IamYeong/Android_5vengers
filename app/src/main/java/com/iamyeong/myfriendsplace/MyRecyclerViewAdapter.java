@@ -25,6 +25,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private UserManager userManager;
     private Map<Long, String> userMap;
 
+    public MyRecyclerViewAdapter() {}
+
     public MyRecyclerViewAdapter(ArrayList<Post> arrayList, Context context) {
 
         this.context = context;
@@ -41,6 +43,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
         View view = LayoutInflater.from(context).inflate(R.layout.cardview_model, parent, false);
         MyViewHolder viewHolder = new MyViewHolder(view);
 
+        System.out.println("onCreateViewHolder");
+
         return viewHolder;
     }
 
@@ -54,6 +58,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         String userName = getUserName(userId);
         holder.user.setText(userName);
+
+        System.out.println("Adapter Bind : " + ", " + post.getTitle() + ", " + userName );
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
