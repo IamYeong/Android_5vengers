@@ -79,6 +79,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private boolean checkUserData(long userId) {
 
+        System.out.println("checkUserdata fun start");
+
         if (userMap.containsKey(userId)) {
             return true;
         }
@@ -96,8 +98,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
         }
 
         String name = userManager.toUserName(userId);
-        System.out.println(userId + ", " + name);
+
         userMap.put(userId, name);
+
+        System.out.println(userMap);
 
         return name;
 
