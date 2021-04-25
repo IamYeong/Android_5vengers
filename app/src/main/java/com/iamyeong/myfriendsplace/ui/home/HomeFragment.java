@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment {
         MyThread thread = new MyThread();
         thread.start();
 
+
         if(postList != null) {
             postList.clear();
         }
