@@ -18,8 +18,7 @@ public class PostActivity extends AppCompatActivity {
     private TextView tv_post, tv_comment, tv_time, tv_title, tv_publisher;
     private Post post;
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    private UserManager userManager;
-    private String name;
+    private String name = "NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +27,8 @@ public class PostActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         post = (Post) intent.getSerializableExtra("POSTBUNDLE");
+        name = intent.getStringExtra("NAME");
 
-        userManager = new UserManager(PostActivity.this);
-        name = userManager.toUserName(post.getPublisher());
         long time = post.getTimes();
 
         tv_post = findViewById(R.id.tv_scroll_post);

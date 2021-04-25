@@ -59,7 +59,7 @@ public class UserManager {
                     System.out.println(strId);
 
                     DocumentSnapshot doc = task.getResult();
-                    System.out.println(doc);
+                    System.out.println(doc + "아니..이게 왜 안 돼");
 
                     strUserName = (String) doc.getData().get(strId);
                     System.out.println(strUserName + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");

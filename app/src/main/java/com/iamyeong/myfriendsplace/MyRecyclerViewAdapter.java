@@ -24,6 +24,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context context;
     private UserManager userManager;
     private Map<Long, String> userMap;
+    private String userName = "name";
 
     public MyRecyclerViewAdapter() {}
 
@@ -56,7 +57,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         holder.title.setText(post.getTitle());
 
-        String userName = getUserName(userId);
+        userName = getUserName(userId);
         holder.user.setText(userName);
 
         System.out.println("Adapter Bind : " + ", " + post.getTitle() + ", " + userName );
@@ -69,6 +70,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("POSTBUNDLE", post);
                 intent.putExtras(bundle);
+                intent.putExtra("NAME", userName);
 
                 context.startActivity(intent);
 

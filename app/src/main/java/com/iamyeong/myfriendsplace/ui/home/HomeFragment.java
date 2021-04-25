@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,10 +62,6 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout = root.findViewById(R.id.swipe_home);
         fab = root.findViewById(R.id.fab_home);
 
-        MyThread thread = new MyThread();
-        thread.start();
-
-
         if(postList != null) {
             postList.clear();
         }
@@ -78,7 +75,8 @@ public class HomeFragment extends Fragment {
         adapter = new MyRecyclerViewAdapter(postList, getActivity());
         recyclerView.setAdapter(adapter);
 
-
+        //MyThread thread = new MyThread();
+        //thread.start();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -87,8 +85,6 @@ public class HomeFragment extends Fragment {
                 adapter.notifyDataSetChanged();
 
                 swipeRefreshLayout.setRefreshing(false);
-
-                thread.stopThread();
 
                 Toast.makeText(getActivity(), "Refresh complete!", Toast.LENGTH_SHORT).show();
 
@@ -121,31 +117,33 @@ public class HomeFragment extends Fragment {
     class MyThread extends Thread {
 
         boolean stopped = false;
-        int i = 0;
-
-        public void stopThread() {
-            stopped = true;
-        }
 
         @Override
         public void run() {
             super.run();
 
-            while(!stopped) {
+            firestoreManager = FirestoreManager.getInstance(getActivity());
+            postList = firestoreManager.getPosts();
 
-                i++;
 
-                System.out.println(i);
 
-                try {
+            System.out.println(postList.size() + "-------------------------");
 
-                    sleep(1000);
 
-                } catch(InterruptedException e) {
-                    e.printStackTrace();
+            /*
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    firestoreManager = FirestoreManager.getInstance(getActivity());
+                    postList = firestoreManager.getPosts();
+                    adapter.notifyDataSetChanged();
+
                 }
-            }
+            });
 
+             */
 
         }
     }

@@ -132,6 +132,10 @@ public class FirestoreManager {
 
     public ArrayList<Comment> getComments(String documentId) {
 
+        if (commentList != null) {
+            commentList.clear();
+        }
+
         db.collection(storageKey).document(documentId)
                 .collection(downsideCollectionId)
                 .get()
