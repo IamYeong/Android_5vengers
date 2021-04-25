@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +61,13 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout = root.findViewById(R.id.swipe_home);
         fab = root.findViewById(R.id.fab_home);
 
+        MyThread thread = new MyThread();
+        thread.start();
+
+        if(postList != null) {
+            postList.clear();
+        }
+
         firestoreManager = FirestoreManager.getInstance(getActivity());
         postList = firestoreManager.getPosts();
 
@@ -69,6 +78,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -76,6 +86,8 @@ public class HomeFragment extends Fragment {
                 adapter.notifyDataSetChanged();
 
                 swipeRefreshLayout.setRefreshing(false);
+
+                thread.stopThread();
 
                 Toast.makeText(getActivity(), "Refresh complete!", Toast.LENGTH_SHORT).show();
 
@@ -105,7 +117,37 @@ public class HomeFragment extends Fragment {
     }
 
 
+    class MyThread extends Thread {
 
+        boolean stopped = false;
+        int i = 0;
+
+        public void stopThread() {
+            stopped = true;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+
+            while(!stopped) {
+
+                i++;
+
+                System.out.println(i);
+
+                try {
+
+                    sleep(1000);
+
+                } catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
+    }
 
 
 

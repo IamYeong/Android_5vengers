@@ -64,7 +64,13 @@ public class FirestoreManager {
 
     public ArrayList<Post> getPosts() {
 
-        ArrayList<Post> postList = new ArrayList<>();
+        //ArrayList<Post> postList = new ArrayList<>();
+
+        if(arrayList != null) {
+
+            arrayList.clear();
+        }
+
 
         //Get all document at this collection.
         db.collection(storageKey)
