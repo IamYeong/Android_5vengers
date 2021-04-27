@@ -42,11 +42,11 @@ Firestore에서 가져올 때는 이미 작성된 시간을 time 필드에 넣�
 Kakao 로그인을 하면서 가져온 Image URL 을 Glide 를 통해서 프로필에 set 하고,   
 네모난 이미지를 Glide 를 사용하여 동그랗게 만들었습니다   
 
-- Firestore : NoSQL 형식인 Firestore 에 유저정보와 게시글 정보를 저장하고
-커스텀 객체를 만들어서 다뤄봤습니다.
-(Post 객체와 UserModel 객체입니다)
+- Firestore : NoSQL 형식인 Firestore 에 유저정보와 게시글 정보를 저장하고   
+커스텀 객체를 만들어서 다뤄봤습니다.   
+(Post 객체와 UserModel 객체입니다)   
 
-- RefreshLayout : 아래로 당기면 목록이 갱신되는 기능을 onRefresh() 콜백함수를 사용해서 구현했습니다.
-동작 하나만 넣는 거라서 Interface를 구현하는 것 보다 간편한 방식인 익명객체를 선택헀습니다.
+- RefreshLayout : 아래로 당기면 목록이 갱신되는 기능을 onRefresh() 콜백함수를 사용해서 구현했습니다.   
+동작 하나만 넣는 거라서 Interface를 구현하는 것 보다 간편한 방식인 익명객체를 선택헀습니다.   
 
 - RecyclerView : 메인화면의 제목/작성자 로 구성된 게시글 목록을 받습니다.
