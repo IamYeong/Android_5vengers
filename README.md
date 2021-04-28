@@ -1,6 +1,8 @@
 # 오벤져스   
 
-## 소개
+## 소개   
+
+<img src="https://user-images.githubusercontent.com/59534301/116390005-94162600-a858-11eb-8619-53aef9473f98.png" width="80px" height="80px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
 
 - 저를 올바르게 이끌어준 친구 4명이 있고,   
 저를 포함해서 총 5명입니다.   
