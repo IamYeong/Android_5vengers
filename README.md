@@ -30,12 +30,16 @@ Firestore에서 가져올 때는 이미 작성된 시간을 time 필드에 넣�
 
 ## 스크린샷
 
-**ID를 활용하여 실시간으로 이름을 가져오고 싶은데,   
-onComplete() 메서드 콜백 타이밍에서 애를 먹고 있습니다.   
-여기서 지연되고 있으니 조금 기다려주세요**   
+<img src="https://user-images.githubusercontent.com/59534301/116808592-9fc55d80-ab74-11eb-8366-1507fdded16b.PNG" width="150px" height="" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
+<img src="https://user-images.githubusercontent.com/59534301/116808594-a05df400-ab74-11eb-95d2-153b8edd20db.PNG" width="150px" height="" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
+<img src="https://user-images.githubusercontent.com/59534301/116808596-a0f68a80-ab74-11eb-9daf-09d746665640.PNG" width="150px" height="" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
+<img src="https://user-images.githubusercontent.com/59534301/116808597-a18f2100-ab74-11eb-938f-bba6e1cdeaf1.PNG" width="150px" height="" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
 
 <!--
-
+![Drawer](https://user-images.githubusercontent.com/59534301/116808592-9fc55d80-ab74-11eb-8366-1507fdded16b.PNG)
+![Home](https://user-images.githubusercontent.com/59534301/116808594-a05df400-ab74-11eb-95d2-153b8edd20db.PNG)
+![Post](https://user-images.githubusercontent.com/59534301/116808596-a0f68a80-ab74-11eb-9daf-09d746665640.PNG)
+![Write](https://user-images.githubusercontent.com/59534301/116808597-a18f2100-ab74-11eb-938f-bba6e1cdeaf1.PNG)
 ![종료]()
 <img src="" width="100px" height="" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
 
