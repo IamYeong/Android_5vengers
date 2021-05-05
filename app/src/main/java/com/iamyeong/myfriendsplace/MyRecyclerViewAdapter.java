@@ -57,8 +57,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         holder.title.setText(post.getTitle());
 
-        userName = getUserName(userId);
-        holder.user.setText(userName);
+        //userName = getUserName(userId);
+        //holder.user.setText(userName);
+        holder.user.setText("정광영");
 
         System.out.println("Adapter Bind : " + ", " + post.getTitle() + ", " + userName );
 

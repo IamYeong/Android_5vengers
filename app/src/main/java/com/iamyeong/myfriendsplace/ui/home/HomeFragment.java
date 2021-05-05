@@ -31,6 +31,7 @@ import com.iamyeong.myfriendsplace.FirestoreManager;
 
 import com.iamyeong.myfriendsplace.MyRecyclerViewAdapter;
 
+import com.iamyeong.myfriendsplace.OnGetPostsListener;
 import com.iamyeong.myfriendsplace.Post;
 import com.iamyeong.myfriendsplace.R;
 import com.iamyeong.myfriendsplace.WriteActivity;
@@ -43,7 +44,7 @@ import kotlinx.coroutines.CoroutineScope;
 import kotlinx.coroutines.Dispatchers;
 import kotlinx.coroutines.GlobalScope;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnGetPostsListener {
 
     private HomeViewModel homeViewModel;
     private RecyclerView recyclerView;
@@ -53,30 +54,56 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirestoreManager firestoreManager;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<Post> postList;
+    private ArrayList<Post> homePostList;
 
-
+    
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         swipeRefreshLayout = root.findViewById(R.id.swipe_home);
         fab = root.findViewById(R.id.fab_home);
 
-        if(postList != null) {
-            postList.clear();
+        firestoreManager = FirestoreManager.getInstance(getActivity());
+        firestoreManager.getPosts(this);
+
+        homePostList= new ArrayList<>();
+
+        if(homePostList != null) {
+            homePostList.clear();
         }
 
-        firestoreManager = FirestoreManager.getInstance(getActivity());
-        postList = firestoreManager.getPosts();
+        long a = 1669565333;
+
+        homePostList.add(new Post(a, "제목1", "내용1"));
+        homePostList.add(new Post(a, "제목2", "내용2"));
+        homePostList.add(new Post(a, "제목3", "내용3"));
+        homePostList.add(new Post(a, "제목4", "내용4"));
+
+        //firestoreManager = FirestoreManager.getInstance(getActivity());
+
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView = root.findViewById(R.id.rv_home);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new MyRecyclerViewAdapter(postList, getActivity());
+        adapter = new MyRecyclerViewAdapter(homePostList, getActivity());
         recyclerView.setAdapter(adapter);
+
+        /*
+
+        firestoreManager.getPosts(new OnGetPostsListener() {
+            @Override
+            public void onGetPosts(ArrayList<Post> postList) {
+                homePostList = postList;
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+         */
 
         //MyThread thread = new MyThread();
         //thread.start();
+
+
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -114,40 +141,10 @@ public class HomeFragment extends Fragment {
     }
 
 
-    class MyThread extends Thread {
+    @Override
+    public void onGetPosts(ArrayList<Post> postList) {
 
-        boolean stopped = false;
+        System.out.println(postList.size());
 
-        @Override
-        public void run() {
-            super.run();
-
-            firestoreManager = FirestoreManager.getInstance(getActivity());
-            postList = firestoreManager.getPosts();
-
-
-
-            System.out.println(postList.size() + "-------------------------");
-
-
-            /*
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-
-                    firestoreManager = FirestoreManager.getInstance(getActivity());
-                    postList = firestoreManager.getPosts();
-                    adapter.notifyDataSetChanged();
-
-                }
-            });
-
-             */
-
-        }
     }
-
-
-
 }

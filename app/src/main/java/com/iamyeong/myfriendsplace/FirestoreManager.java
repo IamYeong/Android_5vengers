@@ -29,7 +29,7 @@ public class FirestoreManager {
     private ArrayList<Post> arrayList = new ArrayList<>();
     private ArrayList<Comment> commentList = new ArrayList<>();
     private Context context;
-
+    private OnGetPostsListener listener;
 
     private FirestoreManager() {}
 
@@ -62,7 +62,7 @@ public class FirestoreManager {
         return arrayList;
     }
 
-    public ArrayList<Post> getPosts() {
+    public void getPosts(OnGetPostsListener listener) {
 
         //ArrayList<Post> postList = new ArrayList<>();
 
@@ -104,7 +104,8 @@ public class FirestoreManager {
                     }
                 });
 
-        return arrayList;
+        listener.onGetPosts(arrayList);
+
     }
 
     public void editPost() {

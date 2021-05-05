@@ -23,8 +23,6 @@ public class UserManager {
     private final String userDocument;
     private String strUserName;
     private FirebaseFirestore db;
-    private CollectionReference collection;
-    private DocumentReference document;
 
     public UserManager(Context activityContext) {
 
@@ -59,7 +57,6 @@ public class UserManager {
                     System.out.println(strId);
 
                     DocumentSnapshot doc = task.getResult();
-                    System.out.println(doc + "아니..이게 왜 안 돼");
 
                     strUserName = (String) doc.getData().get(strId);
                     System.out.println(strUserName + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -68,14 +65,11 @@ public class UserManager {
             }
         };
 
-        System.out.println(onCompleteListener);
-
         db.collection(userCollection)
                 .document(userDocument)
                 .get()
                 .addOnCompleteListener(onCompleteListener);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@" + strUserName);
         return strUserName;
     }
 
