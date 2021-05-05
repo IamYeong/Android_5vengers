@@ -29,7 +29,7 @@ public class FirestoreManager {
     private ArrayList<Post> arrayList = new ArrayList<>();
     private ArrayList<Comment> commentList = new ArrayList<>();
     private Context context;
-    private OnGetPostsListener listener;
+    protected OnGetPostsListener mListener;
 
     private FirestoreManager() {}
 
@@ -66,6 +66,8 @@ public class FirestoreManager {
 
         //ArrayList<Post> postList = new ArrayList<>();
 
+       mListener = listener;
+
         if(arrayList != null) {
 
             arrayList.clear();
@@ -99,12 +101,14 @@ public class FirestoreManager {
 
                             }
 
+                            mListener.onGetPosts(arrayList);
+
                         }
 
                     }
                 });
 
-        listener.onGetPosts(arrayList);
+
 
     }
 

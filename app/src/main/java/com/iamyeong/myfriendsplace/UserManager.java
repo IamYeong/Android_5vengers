@@ -70,6 +70,7 @@ public class UserManager {
                 .get()
                 .addOnCompleteListener(onCompleteListener);
 
+        System.out.println(strUserName + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         return strUserName;
     }
 

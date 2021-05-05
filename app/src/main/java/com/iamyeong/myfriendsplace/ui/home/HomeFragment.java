@@ -55,6 +55,8 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
     private FirestoreManager firestoreManager;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<Post> homePostList;
+    private int postNum = 0;
+    private long a = 1669565333;
 
     
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,43 +74,21 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
             homePostList.clear();
         }
 
-        long a = 1669565333;
-
-        homePostList.add(new Post(a, "제목1", "내용1"));
-        homePostList.add(new Post(a, "제목2", "내용2"));
-        homePostList.add(new Post(a, "제목3", "내용3"));
-        homePostList.add(new Post(a, "제목4", "내용4"));
-
-        //firestoreManager = FirestoreManager.getInstance(getActivity());
-
-
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView = root.findViewById(R.id.rv_home);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new MyRecyclerViewAdapter(homePostList, getActivity());
         recyclerView.setAdapter(adapter);
 
-        /*
-
-        firestoreManager.getPosts(new OnGetPostsListener() {
-            @Override
-            public void onGetPosts(ArrayList<Post> postList) {
-                homePostList = postList;
-                adapter.notifyDataSetChanged();
-            }
-        });
-
-         */
-
-        //MyThread thread = new MyThread();
-        //thread.start();
-
-
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
+                if (homePostList != null) {
+                    homePostList.clear();
+                }
+
+                adapter = new MyRecyclerViewAdapter(homePostList, getActivity());
                 adapter.notifyDataSetChanged();
 
                 swipeRefreshLayout.setRefreshing(false);
@@ -145,6 +125,19 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
     public void onGetPosts(ArrayList<Post> postList) {
 
         System.out.println(postList.size());
+
+        /*
+        if (homePostList != null) {
+            homePostList.clear();
+        }
+
+        homePostList = postList;
+
+         */
+        adapter = new MyRecyclerViewAdapter(postList, getActivity());
+        recyclerView.setAdapter(adapter);
+
+        Toast.makeText(getActivity(), "getPosts", Toast.LENGTH_SHORT).show();
 
     }
 }
