@@ -28,8 +28,6 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/purple_500"
 
-            android:contentDescription="@string/confirm"
-
             android:src="@drawable/ic_baseline_text_format_24"
 
             app:layout_constraintBottom_toBottomOf="parent"

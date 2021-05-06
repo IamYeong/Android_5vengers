@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        userManager = new UserManager(LoginActivity.this);
+        userManager = UserManager.getInstance();
 
          Function2<OAuthToken, Throwable, Unit> function2 = new Function2<OAuthToken, Throwable, Unit>() {
             @Override

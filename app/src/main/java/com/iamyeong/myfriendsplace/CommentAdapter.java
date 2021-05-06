@@ -18,14 +18,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     private ArrayList<Comment> arrayList;
     private Context context;
-    private UserManager userManager;
+    private UserManager userManager = UserManager.getInstance();
     private Map<Long, String> userMap;
     private SimpleDateFormat formatter;
 
     public CommentAdapter(ArrayList<Comment> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
-        userManager = new UserManager(context);
         userMap = new HashMap<>();
         formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -50,7 +49,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
         long time = comment.getTimes();
         String content = comment.getComment();
 
-        String userName = getUserName(userId);
+        String userName = userManager.toUserName(userId);
 
         holder.time.setText(formatter.format(time));
         holder.name.setText(userName);
@@ -65,35 +64,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
         return (arrayList != null? arrayList.size() : 0);
     }
 
-    private boolean checkUserData(long userId) {
-
-        System.out.println("checkUserdata fun start");
-
-        if (userMap.containsKey(userId)) {
-            return true;
-        }
-
-        return false;
-
-    }
-
-    private String getUserName(long userId) {
-
-        if (checkUserData(userId)) {
-
-            return userMap.get(userId);
-
-        }
-
-        String name = userManager.toUserName(userId);
-
-        userMap.put(userId, name);
-
-        System.out.println(userMap);
-
-        return name;
-
-    }
 
 }
 

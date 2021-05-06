@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toast.makeText(MainActivity.this, R.string.login_success_5, Toast.LENGTH_SHORT).show();
-        userManager = new UserManager(MainActivity.this);
+        userManager = UserManager.getInstance();
 
         Intent intent = getIntent();
         kakaoUserId = intent.getLongExtra(getString(R.string.kakao_user_id), 0);

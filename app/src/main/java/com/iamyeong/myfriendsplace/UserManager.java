@@ -19,60 +19,73 @@ import java.util.Map;
 
 public class UserManager {
 
-    private final String userCollection;
-    private final String userDocument;
-    private String strUserName;
-    private FirebaseFirestore db;
+    private static UserManager instance = new UserManager();
 
-    public UserManager(Context activityContext) {
+    private final String userCollection = "USERS";
+    private final String userDocument = "USERSDOCUMENT";
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Map<Long, String> idKeyMap = new HashMap<>();
 
-        userCollection = activityContext.getString(R.string.users);
-        userDocument = activityContext.getString(R.string.users_document);
-        db = FirebaseFirestore.getInstance();
+    private UserManager() {}
+
+    public static UserManager getInstance() {
+
+        if (instance != null) {
+            instance = new UserManager();
+        }
+
+        return instance;
     }
 
     public void setUser(long userId, String knickName) {
 
-        String strId = toStringUserId(userId);
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("USERID", userId);
+        userMap.put("USERNAME", knickName);
 
-        Map<String, String> userMap = new HashMap<>();
-        userMap.put(strId, knickName);
 
         db.collection(userCollection)
-                .document(userDocument)
-                .set(userMap, SetOptions.merge());
+                .add(userMap);
 
     }
 
     public String toUserName(long userId) {
 
-        OnCompleteListener<DocumentSnapshot> onCompleteListener = new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                System.out.println("onComplete");
+        String name = idKeyMap.get(userId);
 
-                if (task.isSuccessful()) {
+        return name;
+    }
 
-                    String strId = toStringUserId(userId);
-                    System.out.println(strId);
-
-                    DocumentSnapshot doc = task.getResult();
-
-                    strUserName = (String) doc.getData().get(strId);
-                    System.out.println(strUserName + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-                }
-            }
-        };
+    public void loadUserName(OnGetUserNameListener listener) {
 
         db.collection(userCollection)
-                .document(userDocument)
                 .get()
-                .addOnCompleteListener(onCompleteListener);
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-        System.out.println(strUserName + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        return strUserName;
-    }
+                        if (task.isSuccessful()) {
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                long id = (Long) document.getData().get("USERID");
+                                String name = (String) document.getData().get("USERNAME");
+
+                                idKeyMap.put(id, name);
+                                System.out.println(idKeyMap.size());
+                                System.out.println(id + ", " + name);
+
+                            }
+
+                        }
+
+
+                        listener.onGetUserName();
+                    }
+                });
+
+
+    };
 
     private String toStringUserId(long id) {
 

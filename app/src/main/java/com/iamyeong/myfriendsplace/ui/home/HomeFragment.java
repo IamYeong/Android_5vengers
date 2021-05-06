@@ -3,6 +3,7 @@ package com.iamyeong.myfriendsplace.ui.home;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.MessagePattern;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,8 +33,10 @@ import com.iamyeong.myfriendsplace.FirestoreManager;
 import com.iamyeong.myfriendsplace.MyRecyclerViewAdapter;
 
 import com.iamyeong.myfriendsplace.OnGetPostsListener;
+import com.iamyeong.myfriendsplace.OnGetUserNameListener;
 import com.iamyeong.myfriendsplace.Post;
 import com.iamyeong.myfriendsplace.R;
+import com.iamyeong.myfriendsplace.UserManager;
 import com.iamyeong.myfriendsplace.WriteActivity;
 
 import java.lang.ref.WeakReference;
@@ -44,7 +47,7 @@ import kotlinx.coroutines.CoroutineScope;
 import kotlinx.coroutines.Dispatchers;
 import kotlinx.coroutines.GlobalScope;
 
-public class HomeFragment extends Fragment implements OnGetPostsListener {
+public class HomeFragment extends Fragment implements OnGetPostsListener, OnGetUserNameListener {
 
     private HomeViewModel homeViewModel;
     private RecyclerView recyclerView;
@@ -55,18 +58,19 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
     private FirestoreManager firestoreManager;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<Post> homePostList;
-    private int postNum = 0;
-    private long a = 1669565333;
+    private UserManager userManager = UserManager.getInstance();
 
-    
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        
         swipeRefreshLayout = root.findViewById(R.id.swipe_home);
         fab = root.findViewById(R.id.fab_home);
 
         firestoreManager = FirestoreManager.getInstance(getActivity());
-        firestoreManager.getPosts(this);
+        firestoreManager.getPosts(HomeFragment.this);
+        userManager.loadUserName(HomeFragment.this);
+        //getPosts and loadUserName use by Splash Activity!!!!!
 
         homePostList= new ArrayList<>();
 
@@ -126,18 +130,41 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
 
         System.out.println(postList.size());
 
-        /*
-        if (homePostList != null) {
-            homePostList.clear();
-        }
+        final Handler handler = new Handler();
 
-        homePostList = postList;
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
 
-         */
-        adapter = new MyRecyclerViewAdapter(postList, getActivity());
-        recyclerView.setAdapter(adapter);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //UI
+
+                        adapter = new MyRecyclerViewAdapter(postList, getActivity());
+                        recyclerView.setAdapter(adapter);
+
+                    }
+                });
+
+            }
+        });
+
+        thread.start();
 
         Toast.makeText(getActivity(), "getPosts", Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    @Override
+    public void onGetUserName() {
+
+
+        adapter.notifyDataSetChanged();
+
+        System.out.println("onGetUserName");
+
 
     }
 }

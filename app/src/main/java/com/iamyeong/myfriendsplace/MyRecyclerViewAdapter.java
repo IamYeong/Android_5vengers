@@ -22,7 +22,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private ArrayList<Post> arrayList;
     private Context context;
-    private UserManager userManager;
+    private UserManager userManager = UserManager.getInstance();
     private Map<Long, String> userMap;
     private String userName = "name";
 
@@ -32,7 +32,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         this.context = context;
         this.arrayList = arrayList;
-        this.userManager = new UserManager(context);
         this.userMap = new HashMap<>();
 
     }
@@ -57,9 +56,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         holder.title.setText(post.getTitle());
 
-        userName = getUserName(userId);
+        userName = userManager.toUserName(userId);
         holder.user.setText(userName);
-        //holder.user.setText("정광영");
 
         System.out.println("Adapter Bind : " + ", " + post.getTitle() + ", " + userName );
 
@@ -84,36 +82,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public int getItemCount() {
         return (arrayList != null? arrayList.size() : 0);
-    }
-
-    private boolean checkUserData(long userId) {
-
-        System.out.println("checkUserdata fun start");
-
-        if (userMap.containsKey(userId)) {
-            return true;
-        }
-
-        return false;
-
-    }
-
-    private String getUserName(long userId) {
-
-        if (checkUserData(userId)) {
-
-            return userMap.get(userId);
-
-        }
-
-        String name = userManager.toUserName(userId);
-
-        userMap.put(userId, name);
-
-        System.out.println(userMap);
-
-        return name;
-
     }
 
 }
