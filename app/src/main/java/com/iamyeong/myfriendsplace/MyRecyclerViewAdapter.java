@@ -22,8 +22,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private ArrayList<Post> arrayList;
     private Context context;
-    private UserManager userManager = UserManager.getInstance();
-    private Map<Long, String> userMap;
+    private UserManager userManager;
     private String userName = "name";
 
     public MyRecyclerViewAdapter() {}
@@ -32,7 +31,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         this.context = context;
         this.arrayList = arrayList;
-        this.userMap = new HashMap<>();
+        this.userManager = UserManager.getInstance();
 
     }
 
@@ -47,8 +46,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
         View view = LayoutInflater.from(context).inflate(R.layout.cardview_model, parent, false);
         MyViewHolder viewHolder = new MyViewHolder(view);
 
-        System.out.println("onCreateViewHolder");
-
         return viewHolder;
     }
 
@@ -61,6 +58,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.title.setText(post.getTitle());
 
         userName = userManager.toUserName(userId);
+
+        System.out.println("UserManager instance where adapter : " + userManager);
         holder.user.setText(userName);
 
         System.out.println("Adapter Bind : " + ", " + post.getTitle() + ", " + userName );

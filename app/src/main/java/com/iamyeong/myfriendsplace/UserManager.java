@@ -20,19 +20,16 @@ import java.util.Map;
 
 public class UserManager {
 
-    private static UserManager instance = new UserManager();
+    private static final UserManager instance = new UserManager();
 
     private final String userCollection = "USERS";
     private final String userDocument = "USERSDOCUMENT";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Map<Long, String> idKeyMap = new HashMap<>();
+
     private UserManager() {}
 
     public static UserManager getInstance() {
-
-        if (instance != null) {
-            instance = new UserManager();
-        }
 
         return instance;
     }
@@ -52,6 +49,10 @@ public class UserManager {
     public String toUserName(long userId) {
 
         String name = idKeyMap.get(userId);
+
+        System.out.println("idKeyMap size() : " + idKeyMap.size());
+        System.out.println("idKeyMap value : " + idKeyMap.get(userId));
+        System.out.println("touserName : " + userId + ", " + name);
 
         return name;
     }
@@ -77,10 +78,10 @@ public class UserManager {
 
                             }
 
+                            listener.onGetUserName();
+
                         }
 
-
-                        listener.onGetUserName();
                     }
                 });
 

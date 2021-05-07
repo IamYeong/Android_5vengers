@@ -22,42 +22,13 @@ public class SplashActivity extends AppCompatActivity implements OnGetUserNameLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        handler = new Handler();
 
         firestoreManager = FirestoreManager.getInstance(SplashActivity.this);
         userManager = UserManager.getInstance();
         firestoreManager.getPosts(SplashActivity.this);
         userManager.loadUserName(SplashActivity.this);
 
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                handler = new Handler(getMainLooper());
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        while (loadCount != 2) {
-                            System.out.println(loadCount);
-                        }
-
-                        /*
-                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-
-                         */
-
-                    }
-                });
-
-            }
-        });
-
-
-        thread.start();
+        System.out.println("UserManager instance : " + userManager);
 
 
     }
@@ -72,14 +43,24 @@ public class SplashActivity extends AppCompatActivity implements OnGetUserNameLi
     @Override
     public void onGetUserName() {
         loadCount++;
-        System.out.println("loadCount : " + loadCount);
+
+        if (loadCount == 2) {
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 
     @Override
     public void onGetPosts(ArrayList<Post> postList) {
         loadCount++;
-        System.out.println("loadCount : " + loadCount);
+
+        if (loadCount == 2) {
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
 
