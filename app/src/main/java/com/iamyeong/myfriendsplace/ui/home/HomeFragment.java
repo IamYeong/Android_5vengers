@@ -58,7 +58,6 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
     private FirestoreManager firestoreManager;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<Post> homePostList;
-    private UserManager userManager = UserManager.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -68,7 +67,9 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
         fab = root.findViewById(R.id.fab_home);
 
         firestoreManager = FirestoreManager.getInstance(getActivity());
-        firestoreManager.getPosts(HomeFragment.this);
+
+        //Need not bellow code. because already writing when 'onResume'
+        //firestoreManager.getPosts(HomeFragment.this);
         //getPosts and loadUserName use by Splash Activity!!!!!
 
         homePostList= new ArrayList<>();
@@ -110,7 +111,7 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
     @Override
     public void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        firestoreManager.getPosts(HomeFragment.this);
         Log.d("HomeFragment : ", "onResume");
     }
 
@@ -121,35 +122,7 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
         adapter.updateAdapterList(postList);
         adapter.notifyDataSetChanged();
 
-        /*
-
-        System.out.println(postList.size());
-
-        final Handler handler = new Handler();
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //UI
-
-                        adapter = new MyRecyclerViewAdapter(postList, getActivity());
-                        recyclerView.setAdapter(adapter);
-
-                    }
-                });
-
-            }
-        });
-
-        thread.start();
-
         Toast.makeText(getActivity(), "getPosts", Toast.LENGTH_SHORT).show();
-
-         */
 
     }
 
