@@ -19,6 +19,7 @@ public class PostActivity extends AppCompatActivity {
     private Post post;
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     private String name = "NAME";
+    private boolean isCommitFragment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,8 @@ public class PostActivity extends AppCompatActivity {
                         .add(R.id.constraint_post_activity, blankFragment)
                         .addToBackStack(null)
                         .commit();
+
+                isCommitFragment = true;
             }
         });
 

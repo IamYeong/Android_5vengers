@@ -83,16 +83,6 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
             @Override
             public void onRefresh() {
 
-                /*
-                if (homePostList != null) {
-                    homePostList.clear();
-                }
-
-                adapter = new MyRecyclerViewAdapter(homePostList, getActivity());
-                adapter.notifyDataSetChanged();
-
-
-                 */
                 firestoreManager.getPosts(HomeFragment.this);
 
                 swipeRefreshLayout.setRefreshing(false);

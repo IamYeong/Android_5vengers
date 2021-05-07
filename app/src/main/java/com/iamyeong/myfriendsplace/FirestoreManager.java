@@ -132,11 +132,14 @@ public class FirestoreManager {
     }
 
 
-    public void addComment(String documentId, Comment comment) {
+    public void addComment(String documentId, Comment comment, OnGetCommentListener listener) {
 
         db.collection(storageKey).document(documentId)
                 .collection(downsideCollectionId)
                 .add(comment);
+
+        mCommentListener = listener;
+        mCommentListener.OnAddedComment();
 
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +26,17 @@ import java.util.ArrayList;
  */
 public class BlankFragment extends Fragment implements OnGetCommentListener {
 
+
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private CommentAdapter adapter;
     private LinearLayoutManager layoutManager;
     private Button button;
     private EditText editText;
     private FirestoreManager firestoreManager;
+    private ArrayList<Comment> commentArrayList;
+    private String documentId;
+    private boolean isCommentAdded = true;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,24 +83,43 @@ public class BlankFragment extends Fragment implements OnGetCommentListener {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
-        String documentId = getArguments().getString("DOCUMENT");
+        documentId = getArguments().getString("DOCUMENT");
 
         firestoreManager = FirestoreManager.getInstance(getActivity());
         UserModel user = UserModel.getInstance();
 
         button = view.findViewById(R.id.btn_comment);
         editText = view.findViewById(R.id.et_comment);
-
+        swipeRefreshLayout = view.findViewById(R.id.swipe_comment);
 
         firestoreManager.getComments(BlankFragment.this, documentId);
 
-
+        commentArrayList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.rv_comment);
-        adapter = new CommentAdapter();
+        adapter = new CommentAdapter(commentArrayList, getActivity());
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         System.out.println("^^^^^^^^^^^^^^Blank flagment is ready");
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                if (isCommentAdded) {
+                    firestoreManager.getComments(BlankFragment.this, documentId);
+
+                    swipeRefreshLayout.setRefreshing(false);
+
+                    Toast.makeText(getActivity(), "Refresh!", Toast.LENGTH_SHORT).show();
+                }
+
+                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(getActivity(), "Add comment not yet :(", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,11 +128,13 @@ public class BlankFragment extends Fragment implements OnGetCommentListener {
                 long userId = user.getUserId();
                 Comment commentObject = new Comment(userId, comment);
 
-                firestoreManager.addComment(documentId, commentObject);
+                firestoreManager.addComment(documentId, commentObject, BlankFragment.this);
+                isCommentAdded = false;
+                editText.setText("");
 
                 commentNotify(documentId);
 
-                editText.setText("");
+
                 Toast.makeText(getActivity(), "완료", Toast.LENGTH_SHORT).show();
 
             }
@@ -129,6 +156,15 @@ public class BlankFragment extends Fragment implements OnGetCommentListener {
 
         adapter.updateCommentList(commentList);
         adapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void OnAddedComment() {
+
+        isCommentAdded = true;
+
+        Toast.makeText(getActivity(), "Comment add complete!", Toast.LENGTH_SHORT).show();
 
     }
 }

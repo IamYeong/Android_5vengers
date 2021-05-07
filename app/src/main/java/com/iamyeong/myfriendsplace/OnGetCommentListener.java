@@ -5,4 +5,5 @@ import java.util.ArrayList;
 public interface OnGetCommentListener {
 
     void OnGetComment(ArrayList<Comment> commentList);
+    void OnAddedComment();
 }
