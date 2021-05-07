@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,7 +26,6 @@ public class UserManager {
     private final String userDocument = "USERSDOCUMENT";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Map<Long, String> idKeyMap = new HashMap<>();
-
     private UserManager() {}
 
     public static UserManager getInstance() {

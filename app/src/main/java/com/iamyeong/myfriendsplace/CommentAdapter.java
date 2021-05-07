@@ -22,6 +22,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
     private Map<Long, String> userMap;
     private SimpleDateFormat formatter;
 
+    public CommentAdapter() {}
+
     public CommentAdapter(ArrayList<Comment> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
@@ -64,6 +66,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
         return (arrayList != null? arrayList.size() : 0);
     }
 
+    public void updateCommentList(ArrayList<Comment> commentList) {
+
+        if (arrayList != null) {
+            arrayList.clear();
+        }
+
+        arrayList = commentList;
+    }
 
 }
 

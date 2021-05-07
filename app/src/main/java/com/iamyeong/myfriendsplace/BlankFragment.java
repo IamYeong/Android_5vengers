@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * Use the {@link BlankFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BlankFragment extends Fragment {
+public class BlankFragment extends Fragment implements OnGetCommentListener {
 
     private RecyclerView recyclerView;
     private CommentAdapter adapter;
@@ -31,7 +31,6 @@ public class BlankFragment extends Fragment {
     private Button button;
     private EditText editText;
     private FirestoreManager firestoreManager;
-    private ArrayList<Comment> comments;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,11 +86,11 @@ public class BlankFragment extends Fragment {
         editText = view.findViewById(R.id.et_comment);
 
 
-        comments = firestoreManager.getComments(documentId);
+        firestoreManager.getComments(BlankFragment.this, documentId);
 
 
         recyclerView = view.findViewById(R.id.rv_comment);
-        adapter = new CommentAdapter(comments, getActivity());
+        adapter = new CommentAdapter();
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -121,10 +120,15 @@ public class BlankFragment extends Fragment {
 
     private void commentNotify(String documentId) {
 
-        comments = firestoreManager.getComments(documentId);
-        adapter.notifyDataSetChanged();
-
+        firestoreManager.getComments(BlankFragment.this, documentId);
 
     }
 
+    @Override
+    public void OnGetComment(ArrayList<Comment> commentList) {
+
+        adapter.updateCommentList(commentList);
+        adapter.notifyDataSetChanged();
+
+    }
 }

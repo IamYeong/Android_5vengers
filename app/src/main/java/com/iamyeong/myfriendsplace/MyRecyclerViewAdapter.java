@@ -36,6 +36,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     }
 
+    public void updateAdapterList(ArrayList<Post> postList) {
+        arrayList = postList;
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -72,7 +76,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 intent.putExtra("NAME", userName);
 
                 context.startActivity(intent);
-
             }
         });
 
@@ -82,7 +85,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public int getItemCount() {
         return (arrayList != null? arrayList.size() : 0);
+
     }
+
 
 }
 

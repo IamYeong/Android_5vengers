@@ -47,7 +47,7 @@ import kotlinx.coroutines.CoroutineScope;
 import kotlinx.coroutines.Dispatchers;
 import kotlinx.coroutines.GlobalScope;
 
-public class HomeFragment extends Fragment implements OnGetPostsListener, OnGetUserNameListener {
+public class HomeFragment extends Fragment implements OnGetPostsListener {
 
     private HomeViewModel homeViewModel;
     private RecyclerView recyclerView;
@@ -69,14 +69,9 @@ public class HomeFragment extends Fragment implements OnGetPostsListener, OnGetU
 
         firestoreManager = FirestoreManager.getInstance(getActivity());
         firestoreManager.getPosts(HomeFragment.this);
-        userManager.loadUserName(HomeFragment.this);
         //getPosts and loadUserName use by Splash Activity!!!!!
 
         homePostList= new ArrayList<>();
-
-        if(homePostList != null) {
-            homePostList.clear();
-        }
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView = root.findViewById(R.id.rv_home);
@@ -88,12 +83,17 @@ public class HomeFragment extends Fragment implements OnGetPostsListener, OnGetU
             @Override
             public void onRefresh() {
 
+                /*
                 if (homePostList != null) {
                     homePostList.clear();
                 }
 
                 adapter = new MyRecyclerViewAdapter(homePostList, getActivity());
                 adapter.notifyDataSetChanged();
+
+
+                 */
+                firestoreManager.getPosts(HomeFragment.this);
 
                 swipeRefreshLayout.setRefreshing(false);
 
@@ -128,6 +128,11 @@ public class HomeFragment extends Fragment implements OnGetPostsListener, OnGetU
     @Override
     public void onGetPosts(ArrayList<Post> postList) {
 
+        adapter.updateAdapterList(postList);
+        adapter.notifyDataSetChanged();
+
+        /*
+
         System.out.println(postList.size());
 
         final Handler handler = new Handler();
@@ -154,17 +159,8 @@ public class HomeFragment extends Fragment implements OnGetPostsListener, OnGetU
 
         Toast.makeText(getActivity(), "getPosts", Toast.LENGTH_SHORT).show();
 
-    }
-
-
-    @Override
-    public void onGetUserName() {
-
-
-        adapter.notifyDataSetChanged();
-
-        System.out.println("onGetUserName");
-
+         */
 
     }
+
 }

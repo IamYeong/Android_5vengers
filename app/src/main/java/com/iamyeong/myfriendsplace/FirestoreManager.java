@@ -30,6 +30,7 @@ public class FirestoreManager {
     private ArrayList<Comment> commentList = new ArrayList<>();
     private Context context;
     protected OnGetPostsListener mListener;
+    protected OnGetCommentListener mCommentListener;
 
     private FirestoreManager() {}
 
@@ -47,6 +48,14 @@ public class FirestoreManager {
 
         return firestoreManager;
 
+    }
+
+    public ArrayList<Post> getPostList() {
+        return arrayList;
+    }
+
+    public ArrayList<Comment> getCommentList() {
+        return commentList;
     }
 
     public void addPost(Post post) {
@@ -135,7 +144,9 @@ public class FirestoreManager {
 
     }
 
-    public ArrayList<Comment> getComments(String documentId) {
+    public void getComments(OnGetCommentListener commentListener, String documentId) {
+
+        mCommentListener = commentListener;
 
         if (commentList != null) {
             commentList.clear();
@@ -165,12 +176,13 @@ public class FirestoreManager {
 
                             }
 
+                            mCommentListener.OnGetComment(commentList);
+
                         }
 
                     }
                 });
 
-        return commentList;
 
     }
 
