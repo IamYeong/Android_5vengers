@@ -119,6 +119,8 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
     @Override
     public void onGetPosts(ArrayList<Post> postList) {
 
+        //Sort function add
+
         adapter.updateAdapterList(postList);
         adapter.notifyDataSetChanged();
 

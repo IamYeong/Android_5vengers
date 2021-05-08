@@ -167,4 +167,6 @@ public class BlankFragment extends Fragment implements OnGetCommentListener {
         Toast.makeText(getActivity(), "Comment add complete!", Toast.LENGTH_SHORT).show();
 
     }
+
+
 }

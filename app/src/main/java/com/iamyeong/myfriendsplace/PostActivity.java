@@ -17,9 +17,13 @@ public class PostActivity extends AppCompatActivity {
 
     private TextView tv_post, tv_comment, tv_time, tv_title, tv_publisher;
     private Post post;
-    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    private String name = "NAME";
+    private SimpleDateFormat formatter;
+    private String name;
     private boolean isCommitFragment = false;
+    private FragmentTransaction ft;
+    private FragmentManager fm;
+    private BlankFragment fragment;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +41,16 @@ public class PostActivity extends AppCompatActivity {
         tv_time = findViewById(R.id.tv_post_time);
         tv_title = findViewById(R.id.tv_title_post);
         tv_publisher = findViewById(R.id.tv_post_publisher);
+        formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         tv_time.setText(formatter.format(time));
         tv_post.setText(post.getContent());
         tv_title.setText(post.getTitle());
         tv_publisher.setText(name);
 
-        Bundle bundle = new Bundle();
+        bundle = new Bundle();
         bundle.putString("DOCUMENT", post.getPostId());
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
 
 
         tv_comment.setOnClickListener(new View.OnClickListener() {
@@ -55,15 +58,20 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(PostActivity.this, "Comment Fragment createView", Toast.LENGTH_SHORT).show();
 
-                BlankFragment blankFragment = new BlankFragment();
-                blankFragment.setArguments(bundle);
+                fragment = new BlankFragment();
 
-                transaction
-                        .add(R.id.constraint_post_activity, blankFragment)
-                        .addToBackStack(null)
-                        .commit();
+                if (fragment.isAdded()) {
+                    ft.remove(fragment);
+                }
 
-                isCommitFragment = true;
+                fm = PostActivity.this.getSupportFragmentManager();
+                ft = fm.beginTransaction();
+
+                fragment.setArguments(bundle);
+                ft.add(R.id.constraint_post_activity, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+
             }
         });
 
@@ -74,8 +82,15 @@ public class PostActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        tv_publisher.setText(name);
+        //tv_publisher.setText(name);
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        ft.remove(fragment);
     }
 }
