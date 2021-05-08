@@ -120,6 +120,7 @@ public class HomeFragment extends Fragment implements OnGetPostsListener {
     public void onGetPosts(ArrayList<Post> postList) {
 
         //Sort function add
+        Collections.sort(postList);
 
         adapter.updateAdapterList(postList);
         adapter.notifyDataSetChanged();

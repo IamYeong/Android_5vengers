@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                     thumbnailURL = kakaoAccount.getProfile().getThumbnailImageUrl();
                     email = kakaoAccount.getEmail();
 
-                    userManager.setUser(userKakaoId, knickName);
+                    userManager.checkUser(userKakaoId, knickName);
 
                     intent.putExtra(getString(R.string.kakao_user_id), userKakaoId);
                     intent.putExtra(getString(R.string.kakao_name_key), knickName);

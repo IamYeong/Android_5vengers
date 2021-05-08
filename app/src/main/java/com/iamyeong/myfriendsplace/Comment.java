@@ -2,7 +2,7 @@ package com.iamyeong.myfriendsplace;
 
 import java.util.Date;
 
-public class Comment {
+public class Comment implements Comparable<Comment> {
 
     private long userKakaoId;
     private String comment;
@@ -46,5 +46,21 @@ public class Comment {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public int compareTo(Comment o) {
+        long time1 = this.times;
+        long time2 = o.times;
+
+        if (time1 < time2) {
+
+            return 1;
+        } else if (time1 > time2) {
+
+            return -1;
+        }
+
+        return 0;
     }
 }

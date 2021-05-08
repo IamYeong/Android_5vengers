@@ -25,7 +25,7 @@ public class UserManager {
     private final String userCollection = "USERS";
     private final String userDocument = "USERSDOCUMENT";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Map<Long, String> idKeyMap = new HashMap<>();
+    private Map<String, String> idKeyMap = new HashMap<>();
 
     private UserManager() {}
 
@@ -34,21 +34,38 @@ public class UserManager {
         return instance;
     }
 
-    public void setUser(long userId, String knickName) {
+    public void setUser(String userId, String knickName) {
 
         Map<String, Object> userMap = new HashMap<>();
-        userMap.put("USERID", userId);
         userMap.put("USERNAME", knickName);
 
-
         db.collection(userCollection)
-                .add(userMap);
+                .document(userId)
+                .set(userMap);
 
+    }
+
+    public void checkUser(long id, String kickName) {
+
+        String strId = toStringUserId(id);
+
+        if (idKeyMap.containsKey(strId)) {
+            //Already exist user case
+
+            db.collection(userCollection)
+                    .document(strId)
+                    .delete();
+
+            setUser(strId, kickName);
+        }
+
+        setUser(strId, kickName);
     }
 
     public String toUserName(long userId) {
 
-        String name = idKeyMap.get(userId);
+        String strId = toStringUserId(userId);
+        String name = idKeyMap.get(strId);
 
         System.out.println("idKeyMap size() : " + idKeyMap.size());
         System.out.println("idKeyMap value : " + idKeyMap.get(userId));
@@ -69,12 +86,9 @@ public class UserManager {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                long id = (Long) document.getData().get("USERID");
                                 String name = (String) document.getData().get("USERNAME");
 
-                                idKeyMap.put(id, name);
-                                System.out.println(idKeyMap.size());
-                                System.out.println(id + ", " + name);
+                                idKeyMap.put(document.getId(), name);
 
                             }
 

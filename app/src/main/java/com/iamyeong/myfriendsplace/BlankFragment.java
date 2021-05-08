@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -153,6 +154,8 @@ public class BlankFragment extends Fragment implements OnGetCommentListener {
 
     @Override
     public void OnGetComment(ArrayList<Comment> commentList) {
+
+        Collections.sort(commentList);
 
         adapter.updateCommentList(commentList);
         adapter.notifyDataSetChanged();
