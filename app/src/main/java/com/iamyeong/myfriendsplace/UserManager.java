@@ -67,10 +67,6 @@ public class UserManager {
         String strId = toStringUserId(userId);
         String name = idKeyMap.get(strId);
 
-        System.out.println("idKeyMap size() : " + idKeyMap.size());
-        System.out.println("idKeyMap value : " + idKeyMap.get(userId));
-        System.out.println("touserName : " + userId + ", " + name);
-
         return name;
     }
 

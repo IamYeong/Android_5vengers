@@ -57,8 +57,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
         holder.name.setText(userName);
         holder.comment.setText(content);
 
-        System.out.println("^^^^^^^^^^^^^^^" + position + ", " + "comment position!");
-
     }
 
     @Override

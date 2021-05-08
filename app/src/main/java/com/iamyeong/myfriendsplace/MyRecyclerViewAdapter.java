@@ -59,10 +59,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         userName = userManager.toUserName(userId);
 
-        System.out.println("UserManager instance where adapter : " + userManager);
-        holder.user.setText(userName);
 
-        System.out.println("Adapter Bind : " + ", " + post.getTitle() + ", " + userName );
+        holder.user.setText(userName);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

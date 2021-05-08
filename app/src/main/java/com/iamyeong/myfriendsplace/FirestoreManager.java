@@ -102,8 +102,6 @@ public class FirestoreManager {
                                 long times = (Long) document.getData().get("times");
                                 String documentId = document.getId();
 
-                                System.out.println("FirestoreManager : " + documentId + ", " + publisherId + ", " + title + ", " + content + ", " + times);
-
                                 Post post = new Post(documentId, publisherId, title, content, times);
 
                                 arrayList.add(post);
@@ -169,8 +167,6 @@ public class FirestoreManager {
                                 long time = (Long) document.getData().get("times");
                                 long userId = (Long) document.getData().get("userKakaoId");
                                 String content = (String) document.getData().get("comment");
-
-                                System.out.println(time + ", " + userId + ", " + content);
 
                                 Comment comment = new Comment(userId, content, time);
 
