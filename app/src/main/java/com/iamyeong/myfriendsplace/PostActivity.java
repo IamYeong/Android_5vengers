@@ -78,19 +78,4 @@ public class PostActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        //tv_publisher.setText(name);
-
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        ft.remove(fragment);
-    }
 }
