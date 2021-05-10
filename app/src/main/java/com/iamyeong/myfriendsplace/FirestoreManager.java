@@ -134,10 +134,15 @@ public class FirestoreManager {
 
         db.collection(storageKey).document(documentId)
                 .collection(downsideCollectionId)
-                .add(comment);
+                .add(comment)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        mCommentListener = listener;
+                        mCommentListener.OnAddedComment();
+                    }
+                });
 
-        mCommentListener = listener;
-        mCommentListener.OnAddedComment();
 
     }
 

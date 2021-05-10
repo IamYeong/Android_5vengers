@@ -86,7 +86,11 @@ public class UserManager {
 
                                 idKeyMap.put(document.getId(), name);
 
+                                System.out.println(document.getId() + ", " + name);
+
                             }
+
+                            System.out.println(idKeyMap.size());
 
                             listener.onGetUserName();
 

@@ -37,7 +37,6 @@ public class BlankFragment extends Fragment implements OnGetCommentListener {
     private FirestoreManager firestoreManager;
     private ArrayList<Comment> commentArrayList;
     private String documentId;
-    private boolean isCommentAdded = true;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,23 +100,15 @@ public class BlankFragment extends Fragment implements OnGetCommentListener {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        System.out.println("^^^^^^^^^^^^^^Blank flagment is ready");
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
-                if (isCommentAdded) {
-                    firestoreManager.getComments(BlankFragment.this, documentId);
-
-                    swipeRefreshLayout.setRefreshing(false);
-
-                    Toast.makeText(getActivity(), "Refresh!", Toast.LENGTH_SHORT).show();
-                }
-
+                firestoreManager.getComments(BlankFragment.this, documentId);
                 swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(getActivity(), "Add comment not yet :(", Toast.LENGTH_SHORT).show();
 
+                Toast.makeText(getActivity(), "Refresh!", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -130,11 +121,7 @@ public class BlankFragment extends Fragment implements OnGetCommentListener {
                 Comment commentObject = new Comment(userId, comment);
 
                 firestoreManager.addComment(documentId, commentObject, BlankFragment.this);
-                isCommentAdded = false;
                 editText.setText("");
-
-                commentNotify(documentId);
-
 
                 Toast.makeText(getActivity(), "완료", Toast.LENGTH_SHORT).show();
 
@@ -165,7 +152,7 @@ public class BlankFragment extends Fragment implements OnGetCommentListener {
     @Override
     public void OnAddedComment() {
 
-        isCommentAdded = true;
+        firestoreManager.getComments(BlankFragment.this, documentId);
 
         Toast.makeText(getActivity(), "Comment add complete!", Toast.LENGTH_SHORT).show();
 

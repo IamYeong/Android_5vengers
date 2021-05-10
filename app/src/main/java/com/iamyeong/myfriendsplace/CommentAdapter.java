@@ -66,11 +66,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     public void updateCommentList(ArrayList<Comment> commentList) {
 
-        if (arrayList != null) {
-            arrayList.clear();
-        }
-
         arrayList = commentList;
+
     }
 
 }

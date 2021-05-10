@@ -51,8 +51,6 @@ public class PostActivity extends AppCompatActivity {
         bundle = new Bundle();
         bundle.putString("DOCUMENT", post.getPostId());
 
-
-
         tv_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

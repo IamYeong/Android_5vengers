@@ -60,9 +60,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                UserApiClient.getInstance().loginWithKakaoAccount(LoginActivity.this, function2);
+                //UserApiClient.getInstance().loginWithKakaoAccount(LoginActivity.this, function2);
 
-                /*
 
                 if (UserApiClient.getInstance().isKakaoTalkLoginAvailable(LoginActivity.this)) {
                     //Meaning of return true : Already install kakao talk application.
@@ -72,7 +71,6 @@ public class LoginActivity extends AppCompatActivity {
                     UserApiClient.getInstance().loginWithKakaoAccount(LoginActivity.this, function2);
                 }
 
-                */
 
             }
 

@@ -23,7 +23,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private ArrayList<Post> arrayList;
     private Context context;
     private UserManager userManager;
-    private String userName = "name";
 
     public MyRecyclerViewAdapter() {}
 
@@ -57,8 +56,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         holder.title.setText(post.getTitle());
 
-        userName = userManager.toUserName(userId);
+        String userName = userManager.toUserName(userId);
 
+        System.out.println("MyRecyclerviewAdapter : " + userName);
 
         holder.user.setText(userName);
 
