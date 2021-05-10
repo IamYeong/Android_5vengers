@@ -24,7 +24,6 @@ public class SplashActivity extends AppCompatActivity implements OnGetUserNameLi
     private FirestoreManager firestoreManager;
     private UserManager userManager;
     private int loadCount = 0;
-    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +37,6 @@ public class SplashActivity extends AppCompatActivity implements OnGetUserNameLi
 
     }
 
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -52,7 +49,7 @@ public class SplashActivity extends AppCompatActivity implements OnGetUserNameLi
         loadCount++;
 
         if (loadCount == 2) {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -64,7 +61,7 @@ public class SplashActivity extends AppCompatActivity implements OnGetUserNameLi
         loadCount++;
 
         if (loadCount == 2) {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }

@@ -26,6 +26,8 @@ public class UserManager {
     private final String userDocument = "USERSDOCUMENT";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Map<String, String> idKeyMap = new HashMap<>();
+    private UserModel userModel = UserModel.getInstance();
+    private OnGetUserNameListener onGetUserNameListener;
 
     private UserManager() {}
 
@@ -41,7 +43,13 @@ public class UserManager {
 
         db.collection(userCollection)
                 .document(userId)
-                .set(userMap);
+                .set(userMap)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        loadUserName2(onGetUserNameListener);
+                    }
+                });
 
     }
 
@@ -54,9 +62,15 @@ public class UserManager {
 
             db.collection(userCollection)
                     .document(strId)
-                    .delete();
+                    .delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            setUser(strId, kickName);
+                        }
+                    });
 
-            setUser(strId, kickName);
+
         }
 
         setUser(strId, kickName);
@@ -72,6 +86,8 @@ public class UserManager {
 
     public void loadUserName(OnGetUserNameListener listener) {
 
+        onGetUserNameListener = listener;
+
         db.collection(userCollection)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -83,9 +99,40 @@ public class UserManager {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
                                 String name = (String) document.getData().get("USERNAME");
-
                                 idKeyMap.put(document.getId(), name);
+                                System.out.println(document.getId() + ", " + name);
 
+                            }
+
+                            System.out.println(idKeyMap.size());
+
+                            //listener.onGetUserName();
+                            checkUser(userModel.getUserId(), userModel.getUserName());
+
+                        }
+
+                    }
+                });
+
+
+    }
+
+    private void loadUserName2(OnGetUserNameListener listener) {
+
+        db.collection(userCollection)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if (task.isSuccessful()) {
+
+                            idKeyMap.clear();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                String name = (String) document.getData().get("USERNAME");
+                                idKeyMap.put(document.getId(), name);
                                 System.out.println(document.getId() + ", " + name);
 
                             }
@@ -94,13 +141,13 @@ public class UserManager {
 
                             listener.onGetUserName();
 
+
                         }
 
                     }
                 });
 
-
-    };
+    }
 
     private String toStringUserId(long id) {
 

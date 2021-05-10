@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private Long userKakaoId;
     private FirebaseFirestore db;
     private UserManager userManager;
+    private UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         userManager = UserManager.getInstance();
+        userModel = UserModel.getInstance();
 
          Function2<OAuthToken, Throwable, Unit> function2 = new Function2<OAuthToken, Throwable, Unit>() {
             @Override
@@ -87,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (user != null) {
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
 
                     Account kakaoAccount = user.getKakaoAccount();
 
@@ -97,13 +99,10 @@ public class LoginActivity extends AppCompatActivity {
                     thumbnailURL = kakaoAccount.getProfile().getThumbnailImageUrl();
                     email = kakaoAccount.getEmail();
 
-                    userManager.checkUser(userKakaoId, knickName);
-
-                    intent.putExtra(getString(R.string.kakao_user_id), userKakaoId);
-                    intent.putExtra(getString(R.string.kakao_name_key), knickName);
-                    intent.putExtra(getString(R.string.kakao_image_url_key), imageURL);
-                    intent.putExtra(getString(R.string.kakao_thumbnail_url_key), thumbnailURL);
-                    intent.putExtra(getString(R.string.kakao_email_key), email);
+                    userModel.setUserId(userKakaoId);
+                    userModel.setThumbnailURL(thumbnailURL);
+                    userModel.setImageURL(imageURL);
+                    userModel.setUserName(knickName);
 
                     startActivity(intent);
                     finish();
