@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
     private String knickName, imageURL, thumbnailURL, email;
     private Long kakaoUserId;
     private UserModel user;
-    private FirestoreManager firestoreManager;
-    private UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,22 +62,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toast.makeText(MainActivity.this, R.string.login_success_5, Toast.LENGTH_SHORT).show();
-        userManager = UserManager.getInstance();
 
-        Intent intent = getIntent();
-        kakaoUserId = intent.getLongExtra(getString(R.string.kakao_user_id), 0);
-        knickName = intent.getStringExtra(getString(R.string.kakao_name_key));
-        imageURL = intent.getStringExtra(getString(R.string.kakao_image_url_key));
-        thumbnailURL = intent.getStringExtra(getString(R.string.kakao_thumbnail_url_key));
-        email = intent.getStringExtra(getString(R.string.kakao_email_key));
-
-        System.out.println(kakaoUserId + ", " + knickName + ", " + imageURL + ", " + thumbnailURL + ", " + email);
         user = UserModel.getInstance();
 
-        user.setUserName(knickName);
-        user.setImageURL(imageURL);
-        user.setThumbnailURL(thumbnailURL);
-        user.setUserId(kakaoUserId);
+        kakaoUserId = user.getUserId();
+        knickName = user.getUserName();
+        imageURL = user.getImageURL();
+        thumbnailURL = user.getThumbnailURL();
+
+        System.out.println(kakaoUserId + ", " + knickName + ", " + imageURL + ", " + thumbnailURL + ", " + email);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -98,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 .circleCrop()
                 .into(img_profile);
         name.setText(knickName);
-        tv_email.setText(email);
+        //tv_email.setText(email);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
